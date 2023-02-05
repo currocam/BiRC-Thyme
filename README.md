@@ -38,10 +38,10 @@ snakemake -c10 --use-conda --use-singularity
 
 ## Project structure
 
-You will find a summary of intermediate results in the [results README file](results/README)
+You will find a summary of intermediate results in the [results README file](results/README.md)
 
 You can find more about
-- Complete log files in [log directory](logs/README).
-- Input data in [reads directory](reads/README).
-- Runtime information in [benchmarks directory](benchmarks/README).
+- Complete log files in [log directory](logs/README.md).
+- Input data in [reads directory](reads/README.md).
+- Runtime information in [benchmarks directory](benchmarks/README.md).
 
