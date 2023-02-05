@@ -1,0 +1,10 @@
+results/**
+!results/README
+logs/**
+!logs/README
+benchmarks/**
+!benchmarks/README
+.cache
+.snakemake/**
+*.gz
+*.html
