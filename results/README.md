@@ -6,3 +6,7 @@
 ## Trimmed reads
 
 Trimmed reads were obtained using [LongQC Report](https://github.com/yfukasawa/LongQC). This step was ran using PacBio HiFi mode. -> results/trimmed/THYME_607L_hifi.fastq
+
+## Filtered reads
+
+Trimmed reads were filtered by quality using [LongQC Report](https://github.com/yfukasawa/LongQC). This step was ran using PacBio HiFi mode. -> results/trimmed/THYME_607L_hifi.fastq
