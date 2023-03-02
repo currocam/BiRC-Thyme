@@ -4,9 +4,40 @@ rule all:
         "results/qc/longqc/THYME_607L_hifi",
         "results/filtered/THYME_607L_hifi_best_1_perc.fastq.gz",
         "results/aligned/GCA_024222315.1_ASM2422231v1_genomic_aln_best_1_perc.sorted.bam",
-        "results/reference/GCA_024222315.1_ASM2422231v1_genomic_chromosomes.fna.gz",
-        "results/aligned/chr_aln_best_5_perc.sorted.bam"
+        "results/summary/cov_5_perc.csv",
+        "results/summary/zeros_5_perc.csv"
 
+rule summary_notebook:
+    input:
+        "results/aligned/chr_aln_best_5_perc.sorted.bam",
+        "results/aligned/GCA_024222315.1_ASM2422231v1_genomic_aln_best_1_perc.sorted.bam"
+    output:
+        "results/summary/cov_5_perc.csv",
+        "results/summary/cov_1_perc.csv",
+        "results/summary/count_5_perc.csv",
+        "results/summary/count_1_perc.csv",
+    conda: 
+        "envs/pysam.yaml"
+    log:
+        # optional path to the processed notebook
+        notebook="logs/notebooks/summary_notebook.ipynb"
+    notebook:
+        "notebooks/01-extract_reads_from_best_1_perc_to_table/pysam_processing.py.ipynb"
+
+rule summary_notebook_zeros:
+    input:
+        "results/aligned/chr_aln_best_5_perc.sorted.bam",
+        "results/aligned/GCA_024222315.1_ASM2422231v1_genomic_aln_best_1_perc.sorted.bam"
+    output:
+        "results/summary/zeros_5_perc.csv",
+        "results/summary/zeros_1_perc.csv",
+    conda: 
+        "envs/pysam.yaml"
+    log:
+        # optional path to the processed notebook
+        notebook="logs/notebooks/summary_notebook_count.ipynb"
+    notebook:
+        "notebooks/01-extract_reads_from_best_1_perc_to_table/pysam_processing_count.py.ipynb"
 
 rule fastqc:
     input:
