@@ -8,3 +8,4 @@ benchmarks/**
 .snakemake/**
 *.gz
 *.html
+.Rproj.user
