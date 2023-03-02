@@ -114,3 +114,32 @@ rule minimap2_bam_sorted_best_1_perc:
     threads: 3
     wrapper:
         "v1.23.1/bio/minimap2/aligner"
+
+
+rule subset_reference_genome:
+    input: 
+        "external_data/GCA_024222315.1_ASM2422231v1_genomic.fna.gz",
+    output: 
+        "results/reference/GCA_024222315.1_ASM2422231v1_genomic_chromosomes.fna.gz",
+    params: 
+        awk = """awk '/^>/ {P=index($0,"JANAFA0")==0} {if(P) print}'"""
+    shell: 
+        """gunzip -c {input} | {params.awk} | gzip > {output}"""
+
+rule minimap2_bam_sorted_best_5_perc:
+    input:
+        target="external_data/GCA_024222315.1_ASM2422231v1_genomic.fna.gz",  # can be either genome index or genome fasta
+        query="results/filtered/THYME_607L_hifi_best_5_perc.fastq.gz",
+    output:
+        "results/aligned/chr_aln_best_5_perc.sorted.bam",
+    log:
+        "logs/minimap2/chr_aln_best_5_perc.log",
+    params:
+        extra="-x map-hifi",  # optional
+        sorting="coordinate",  # optional: Enable sorting. Possible values: 'none', 'queryname' or 'coordinate'
+        sort_extra="",  # optional: extra arguments for samtools/picard
+    benchmark: 
+        "benchmarks/minimap2/chr_aln_best_5_perc.log"    
+    threads: 3
+    wrapper:
+        "v1.23.1/bio/minimap2/aligner"

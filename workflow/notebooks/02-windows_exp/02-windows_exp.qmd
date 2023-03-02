@@ -1,0 +1,58 @@
+---
+title: "Windows"
+format: html
+editor: visual
+---
+
+## Window experiment
+
+First, we are going to read the file:
+
+```{r}
+library(tidyverse)
+data <- read_csv("02-windows_exp/windows_exp_1000.csv") |>
+  select(-...1)
+data |>
+  group_by(contig)|>
+  summarise(n = n())
+```
+
+##  Window coverage
+
+This is the experimental depth per window of size (1000).
+
+```{r}
+window_size <- 1000
+data$window_coverage_norm <- data$window_coverage / window_size
+
+source("format.R")
+data |>
+  ggplot(aes(y = contig, x = window_coverage, fill = contig))+
+  geom_boxplot()+
+  scale_x_log10()+
+  scale_fill_manual(values = get_wants_hue(13))+
+  theme_light()+
+  guides(fill = "none")
+```
+
+```{r}
+data |>
+  ggplot(aes(y = contig, x = window_freq, fill = contig))+
+  geom_boxplot()+
+  scale_fill_manual(values = get_wants_hue(13))+
+  theme_light()+
+  guides(fill = "none")
+```
+
+```{r}
+mean(data$window_coverage)/var(data$window_coverage)
+```
+
+```{r}
+data |>
+  group_by(contig)|>
+  summarise(
+    ratio_cov = mean(window_coverage)/var(window_coverage),
+    ratio_freq = mean(window_freq)/var(window_freq)
+  )
+```
