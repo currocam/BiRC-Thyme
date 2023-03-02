@@ -7,5 +7,6 @@ benchmarks/**
 .cache
 .snakemake/**
 *.gz
+*.csv
 *.html
 .Rproj.user
