@@ -1,3 +1,7 @@
+*.rds
+*.pdf
+*.html
+*.RDS
 results/**
 !results/README
 logs/**
@@ -7,6 +11,5 @@ benchmarks/**
 .cache
 .snakemake/**
 *.gz
-*.csv
 *.html
 .Rproj.user
