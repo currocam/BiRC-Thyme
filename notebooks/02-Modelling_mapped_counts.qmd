@@ -1,0 +1,428 @@
+---
+title: Modelling coverage
+author: Curro Campuzano
+output: html_document
+---
+
+## Thymus quinquecostatus quick inspection
+
+This genome was obtained with PacBio RS and a genome coverage of 40.0x.
+
+## Assembly statistics
+
+- Contig N50 -> 8,059,748
+- Contig L50 -> 23
+
+> Contig N50 is the shortest contig length that needs to be included for covering 50% of the genome
+
+> Contig L50. Given a set of contigs, each with its own length, the L50 is defined as count of smallest number of contigs whose length sum makes up half of genome size
+
+The assembly has 13 pseudo-chromosomes, which correspond to Linkage groups LG01-LG13. There are 465 unplaced scaffolds. 
+
+```{r}
+unplaced_length <- 39913656
+assembly_length <- 528675121
+(unplaced_length/assembly_length)*100
+```
+
+Unplaced sequences are 7.5% of the total genome assembly, so it seems reasonable to me to use the 13 pseudo-chromosomes for assembly. 
+
+## Mapped reads
+
+We are mapping a super high percentage of the reads (over 99%). 
+
+
+The high number of secondary alignments could imply that some of the reads are matching highly repetitive regions. 
+
+We have a pretty high number of supplementary alignments. I think this doesn't mean anything "important". Large insertions or deletions can cause supplementary alignments to be created (supplementary often -> split alignments). Minimap2 tries with large indels up to 100kb. This is something we will expect when mapping 2 different genomes. 
+
+https://arxiv.org/abs/2108.03515
+
+
+According to samtools stats, we are having an error rate of 15% which is very high (compared with the expected sequence identity for, at least, coding regions). If we check how we did the alignment, we can see that there are some flags for sequence divergence. The error rate seems like a nice rough estimator to me. 
+
+> Minimap2 has three presets for full-genome alignment: "asm5" for sequence divergence below 1%, "asm10" for divergence around a couple of percent and "asm20" for divergence not more than 10%. In theory, with the right setting, minimap2 should work for sequence pairs with sequence divergence up to ~15%, but this has not been carefully evaluated.
+
+https://github.com/lh3/minimap2/blob/master/cookbook.md#cross-species-full-genome-alignment
+
+```{r}
+library(tidyverse)
+source("format.R")
+reads <- read_table("../results/filtered/sequence_length_dist.txt",col_names = c("length", "n")) |>
+    arrange(-length)
+data.frame(
+    lengths = rep(reads$length, reads$n)
+) |>
+    ggplot(aes(x = lengths, fill = "lavanda"))+
+    geom_histogram(bins = 100) +
+    geom_vline(xintercept = 19144)+
+    guides(fill = "none")
+```
+
+## Modeling mapped reads
+
+For reducing the computational cost, I have computed the number of mapped reads per window for k = 1000 and k = 25000. I would expect those reads to be randomly distributed across the genome. I have obtained this data using pysamstats. 
+
+https://github.com/alimanfoo/pysamstats
+
+```{r}
+accession_list_chr = c(
+    "CM044164.1", "CM044165.1", "CM044166.1", "CM044167.1",
+    "CM044168.1", "CM044169.1", "CM044170.1", "CM044171.1",
+    "CM044172.1", "CM044173.1", "CM044174.1", "CM044175.1",
+    "CM044176.1"
+)
+chr_hues <- get_wants_hue(13)
+
+data <- read_tsv("../results/aligned_stats/binned_coverage_big.txt", show_col_types = FALSE) |>
+    filter(chrom %in% accession_list_chr)
+head(data)
+```
+
+### Number of windows per pseudochromosome
+
+```{r}
+data |>
+  group_by(chrom)|>
+  summarise(n = n()) |>
+  ggplot(aes(y = chrom, x =n, fill = chrom))+
+  geom_col() +
+  scale_fill_manual(values = chr_hues)+
+  guides(fill = "none")+
+  xlab("Number of windows")+
+  ylab("Pseudochromosome")
+```
+
+### Variance-mean ratio
+
+According to the variance-mean ratio, counts are highly clumped. 
+
+```{r}
+data |>
+  group_by(chrom)|>
+  summarise(
+      mean = mean(reads_all),
+      variance = var(reads_all),
+      ratio = variance/mean
+  ) |> t()
+```
+
+### Distribution of the number of mapped reads per window
+
+```{r}
+library(scales)
+data |>
+  ggplot(aes(x = reads_all, fill = chrom))+
+  geom_histogram(binwidth = 1) +
+  scale_fill_manual(values = chr_hues)+
+  xlab("Number of mapped reads in a 25000-size window")+
+  ylab("Count")+
+  scale_x_continuous(
+    trans = pseudo_log_trans()
+    )+ 
+  theme(
+      axis.text.x = element_text(angle = 90),
+      legend.position="bottom", legend.box = "horizontal"
+  )
+```
+
+### Formulating bayesian modeling
+
+For this model, I would assume that a) non conserved regions are evolving fast enough that there are no chances of mapping in those, b) those non-conserved regions are randomly distributed and c) the event of mapping a read in a window happens throughout a Poisson process. 
+
+That is, the probability of a window being non conserved has a probability $p$ and follows a Bernouilli distribution, and mapping a count into a window has a success rate of $\lambda$.
+
+Then, the probability of a window without any count is given by
+
+$$
+Pr(0|p, \lambda) = Pr(\text{non conserved}|p) + Pr(\text{conserved}|p)\times Pr(0|\lambda) \\
+= p + (1-p) e^{-\lambda}
+$$
+
+### Simulating data from generative model
+
+```{r}
+generative_model <- function(n_windows, p, lambda){
+    conserved <- rbinom(n_windows, 1, 1-p)
+    conserved * rpois(n_windows, lambda)
+}
+generative_model(100, 0.5, 10)
+```
+
+The bayesian model we are going to use is formulated as follows:
+
+$$
+\begin{align*}
+y_i & \sim \text{ZIPoisson} (p_i, \lambda_i)\\
+\text{logit} (p_i)     & = \alpha_p + \beta_p x_i \\
+\text{log} (\lambda_i) & = \alpha_\lambda + \beta_\lambda x_i
+\end{align*}
+$$
+
+### Fitting model in simulated data
+Now, we are going to simulate data for the first chromosome. We would simulate it with the following parameters:
+
+```{r}
+chr_bp <- 36629419
+(n_windows <- ceiling(chr_bp/25000) - 1)
+(p <- mean(data |> filter(chrom == "CM044164.1") |> pull(reads_all) == 0))
+(lambda <- mean(data |> filter(chrom == "CM044164.1" & reads_all != 0) |> pull(reads_all)))
+```
+
+```{r}
+# First chromosome size
+set.seed(1)
+simulated_counts <- tibble(Y = generative_model(n_windows, p, lambda))
+library(brms)
+model <- brm(
+    data = simulated_counts, family = zero_inflated_poisson,
+      Y ~ 1,
+      prior = c(prior(normal(0, 10), class = Intercept),
+                prior(beta(1, 1), class = zi)),  # the brms default is beta(1, 1)
+      cores = 8,
+      seed = 11) 
+model
+```
+
+It's a bit confusing, but zi it's already in the probabilistic metric and you don't have to modify it:
+
+
+https://cran.r-project.org/web/packages/brms/vignettes/brms_families.html#zero-inflated-and-hurdle-models
+https://bookdown.org/ajkurz/Statistical_Rethinking_recoded/monsters-and-mixtures.html
+
+As we can see, our model worked quite nicely with the simulated data. We are getting an estimated $p$ of 0.03 (true value 0.04) and $\lambda$ of 14.15 (true value 14.16). 
+
+```{r}
+exp(2.65)
+```
+
+```{r}
+library(tidybayes)
+library(posterior)
+set.seed(1)
+counts <- model |>
+    spread_draws(b_Intercept, zi) |>
+    rowwise()|>
+    mutate(count = rbinom(1, 1, 1-zi) * rpois(1, exp(b_Intercept))) |>
+    pull(count) |>
+    sample(size = n_windows,replace = TRUE)
+```
+
+```{r}
+tibble(
+    Y = c(simulated_counts$Y, counts),
+    label = c(rep("observed", n_windows), rep("posterior prediction", n_windows))
+) |>
+    ggplot(aes(x = Y, fill = label))+
+    geom_histogram(alpha = 0.5, position = "dodge", bins= 50)+
+  xlab("Number of mapped reads in a 25000-size window")+
+  ylab("Count")+
+  scale_x_continuous(
+    trans = pseudo_log_trans()
+    )+ 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+### Modelling real data
+
+```{r}
+set.seed(1)
+model <- brm(
+    data = data, family = zero_inflated_poisson,
+    reads_all ~ 1,
+    prior = c(
+        prior(normal(0, 10), class = Intercept),
+        prior(beta(1, 1), class = zi)),
+    cores = 8,file = "big_window_brm.rds", seed = 11) 
+model
+```
+
+First, we are going to take a look to how the posterior distribution looks:
+
+```{r}
+model |>
+    spread_draws(b_Intercept, zi) |>
+    mutate(lambda = exp(b_Intercept)) |>
+    select(zi, lambda) |>
+    pivot_longer(cols= everything(),names_to = "param") |>
+    ggplot(aes(x = value, fill = param))+
+    geom_density()+
+    facet_wrap(~param,scales = "free",nrow = 2)
+```
+
+And, now, we are going how generated data with our generative model and parameters sampled from the posterior looks like: 
+
+```{r}
+set.seed(1)
+counts <- model |>
+    spread_draws(b_Intercept, zi) |>
+    rowwise()|>
+    mutate(count = rbinom(1, 1, 1-zi) * rpois(1, exp(b_Intercept))) |>
+    pull(count) |>
+    sample(size = nrow(data),replace = TRUE)
+```
+
+```{r}
+tibble(
+    Y = c(data$reads_all, counts),
+    label = c(rep("observed", nrow(data)), rep("posterior prediction", nrow(data)))
+) |>
+    ggplot(aes(x = Y, fill = label))+
+    geom_histogram(alpha = 0.5, position = "dodge", bins= 50)+
+  xlab("Number of mapped reads in a 25000-size window")+
+  ylab("Count")+
+  scale_x_continuous(
+    trans = pseudo_log_trans()
+    )+ 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+Although it's a big improvement regarding what I was doing before, it looks like a Poisson distribution doesn't allow "enough" variance. Maybe try with a negative binomial or -> take into account different chromosomes. 
+
+### Modelling only first chromosome
+
+```{r}
+data2 <- filter(data, chrom == "CM044164.1")
+set.seed(1)
+model <- brm(
+    data = data2, family = zero_inflated_poisson,
+    reads_all ~ 1,
+    prior = c(
+        prior(normal(0, 10), class = Intercept),
+        prior(beta(1, 1), class = zi)),
+    cores = 8,file = "big_window_brm_CM044164.1.rds", seed = 11) 
+model
+```
+
+First, we are going to take a look to how the posterior distribution looks:
+
+```{r}
+model |>
+    spread_draws(b_Intercept, zi) |>
+    mutate(lambda = exp(b_Intercept)) |>
+    select(zi, lambda) |>
+    pivot_longer(cols= everything(),names_to = "param") |>
+    ggplot(aes(x = value, fill = param))+
+    geom_density()+
+    facet_wrap(~param,scales = "free",nrow = 2)
+```
+
+And, now, we are going how generated data with our generative model and parameters sampled from the posterior looks like: 
+
+```{r}
+set.seed(1)
+counts <- model |>
+    spread_draws(b_Intercept, zi) |>
+    rowwise()|>
+    mutate(count = rbinom(1, 1, 1-zi) * rpois(1, exp(b_Intercept))) |>
+    pull(count) |>
+    sample(size = nrow(data2),replace = TRUE)
+```
+
+```{r}
+tibble(
+    Y = c(data2$reads_all, counts),
+    label = c(rep("observed", nrow(data2)), rep("posterior prediction", nrow(data2)))
+) |>
+    ggplot(aes(x = Y, fill = label))+
+    geom_histogram(alpha = 0.5, position = "dodge", bins= 50)+
+  xlab("Number of mapped reads in a 25000-size window")+
+  ylab("Count")+
+  scale_x_continuous(
+    trans = pseudo_log_trans()
+    )+ 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+### Modelling one chromosome using a smaller window size
+
+```{r}
+data3 <- read_tsv("../results/aligned_stats/binned_coverage.txt") |>
+    filter(chrom == "CM044164.1")
+set.seed(1)
+model <- brm(
+    data = data3, family = zero_inflated_poisson,
+    reads_all ~ 1,
+    prior = c(
+        prior(normal(0, 10), class = Intercept),
+        prior(beta(1, 1), class = zi)),
+    cores = 8,file = "small_window_brm_CM044164.1.rds", seed = 11) 
+model
+```
+
+First, we are going to take a look to how the posterior distribution looks:
+
+```{r}
+model |>
+    spread_draws(b_Intercept, zi) |>
+    mutate(lambda = exp(b_Intercept)) |>
+    select(zi, lambda) |>
+    pivot_longer(cols= everything(),names_to = "param") |>
+    ggplot(aes(x = value, fill = param))+
+    geom_density()+
+    facet_wrap(~param,scales = "free",nrow = 2)
+```
+
+And, now, we are going how generated data with our generative model and parameters sampled from the posterior looks like: 
+
+```{r}
+set.seed(1)
+counts <- model |>
+    spread_draws(b_Intercept, zi) |>
+    rowwise()|>
+    mutate(count = rbinom(1, 1, 1-zi) * rpois(1, exp(b_Intercept))) |>
+    pull(count) |>
+    sample(size = nrow(data3),replace = TRUE)
+```
+
+```{r}
+tibble(
+    Y = c(data3$reads_all, counts),
+    label = c(rep("observed", nrow(data3)), rep("posterior prediction", nrow(data3)))
+) |>
+    ggplot(aes(x = Y, fill = label))+
+    geom_histogram(alpha = 0.5, position = "dodge", bins= 50)+
+  xlab("Number of mapped reads in a 1000-size window")+
+  ylab("Count")+
+  scale_x_continuous(
+    trans = pseudo_log_trans()
+    )+ 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+I have mixed ideas. On the one hand, a smaller window means that there is not as much variance. On the other hand, using a window size smaller than the average size of the alignment does not seem appropriate. 
+
+## Likelihood approach (now giving the exact same results 🤣)
+
+```{r}
+library(pscl)
+summary(m1 <- zeroinfl(reads_all ~ 1 | 1, data = data3))
+```
+
+```{r}
+logit2prob <- function(logit){
+  odds <- exp(logit)
+  prob <- odds / (1 + odds)
+  return(prob)
+}
+
+(p <- logit2prob(1.07603))
+(lambda <- exp(0.763069))
+counts <- generative_model(nrow(data3), p, lambda)
+```
+
+```{r}
+tibble(
+    Y = c(data3$reads_all, counts),
+    label = c(rep("observed", nrow(data3)), rep("likelihood prediction", nrow(data3)))
+) |>
+    ggplot(aes(x = Y, fill = label))+
+    geom_histogram(alpha = 0.5, position = "dodge", bins= 50)+
+  xlab("Number of mapped reads in a 1000-size window")+
+  ylab("Count")+
+  scale_x_continuous(
+    trans = pseudo_log_trans()
+    )+ 
+  theme(axis.text.x = element_text(angle = 90))
+```
+
