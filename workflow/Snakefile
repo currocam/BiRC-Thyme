@@ -1,145 +1,28 @@
-rule all: 
-    input: 
+rule all:
+    input:
         "results/qc/fastqc/THYME_607L_hifi.html",
         "results/qc/longqc/THYME_607L_hifi",
         "results/filtered/THYME_607L_hifi_best_1_perc.fastq.gz",
         "results/aligned/GCA_024222315.1_ASM2422231v1_genomic_aln_best_1_perc.sorted.bam",
         "results/summary/cov_5_perc.csv",
-        "results/summary/zeros_5_perc.csv"
-
-rule summary_notebook:
-    input:
-        "results/aligned/chr_aln_best_5_perc.sorted.bam",
-        "results/aligned/GCA_024222315.1_ASM2422231v1_genomic_aln_best_1_perc.sorted.bam"
-    output:
-        "results/summary/cov_5_perc.csv",
-        "results/summary/cov_1_perc.csv",
-        "results/summary/count_5_perc.csv",
-        "results/summary/count_1_perc.csv",
-    conda: 
-        "envs/pysam.yaml"
-    log:
-        # optional path to the processed notebook
-        notebook="logs/notebooks/summary_notebook.ipynb"
-    notebook:
-        "notebooks/01-extract_reads_from_best_1_perc_to_table/pysam_processing.py.ipynb"
-
-rule summary_notebook_zeros:
-    input:
-        "results/aligned/chr_aln_best_5_perc.sorted.bam",
-        "results/aligned/GCA_024222315.1_ASM2422231v1_genomic_aln_best_1_perc.sorted.bam"
-    output:
         "results/summary/zeros_5_perc.csv",
-        "results/summary/zeros_1_perc.csv",
-    conda: 
-        "envs/pysam.yaml"
-    log:
-        # optional path to the processed notebook
-        notebook="logs/notebooks/summary_notebook_count.ipynb"
-    notebook:
-        "notebooks/01-extract_reads_from_best_1_perc_to_table/pysam_processing_count.py.ipynb"
-
-rule fastqc:
-    input:
-        "reads/{sample}.fastq.gz"
-    output:
-        html="results/qc/fastqc/{sample}.html",
-        zip="results/qc/fastqc/{sample}_fastqc.zip" # the suffix _fastqc.zip is necessary for multiqc to find the file. If not using multiqc, you are free to choose an arbitrary filename
-    params: "--quiet"
-    log:
-        "logs/fastqc/{sample}.log"
-    threads: 1
-    wrapper:
-        "v1.22.0/bio/fastqc"
+        "results/aligned_stats/binned_coverage.txt",
+        "results/aligned_stats/binned_coverage_big.txt",
+        "results/filtered/sequence_length_dist.txt",
+        "results/bwa/best_5_perc_aligned.sam",
+        "results/aligned_stats/coverage_subsample_minimap2.txt",
+        "results/aligned_stats/coverage_subsample_bwa.txt",
+        "results/bwa/candidates_THYME_607L_hifi.sam",
+        "results/aligned_hifiasm/candidates_filtered_contigs.sorted.bam",
+        "results/bwa/candidates_hifiasm_10k_q30.sam",
 
 
-rule longqc:
-    input: 
-        "reads/{sample}.fastq.gz"
-    output:
-        qc = directory("results/qc/longqc/{sample}"),
-        trimmed = "results/trimmed/{sample}.fastq"
-    params: "-x pb-hifi"
-    log:
-        "logs/longqc/{sample}.log"
-    benchmark: 
-        "benchmarks/longqc/{sample}.log"
-    threads: 4
-    container:
-        "docker://grpiccolils/longqc"
-    shell:
-        "longQC sampleqc {input} "
-        "-p {threads} {params} "
-        "-o {output.qc} -c {output.trimmed} 2> {log}"
-
-rule filtlong:
-    input:
-        "results/trimmed/{sample}.fastq"
-    output:
-        "results/filtered/{sample}_best_{percentage}_perc.fastq.gz"
-    conda: 
-        "envs/filtlong.yaml"
-    benchmark: 
-        "benchmarks/filtlong/{sample}_{percentage}.log"
-    shell: 
-        "filtlong --keep_percent {wildcards.percentage} {input} | gzip > {output}"
-
-
-rule minimap2_index_reference_genome:
-    input:
-        target="external_data/{input1}.fna.gz"
-    output:
-        "results/minimap2_index/{input1}.mmi"
-    log:
-        "logs/minimap2_index/{input1}.log"
-    params:
-        extra=""  # no optional additional args
-    threads: 3
-    wrapper:
-        "v1.23.1/bio/minimap2/index"
-
-
-rule minimap2_bam_sorted_best_1_perc:
-    input:
-        target="results/minimap2_index/{input1}.mmi",  # can be either genome index or genome fasta
-        query="results/filtered/THYME_607L_hifi_best_1_perc.fastq.gz",
-    output:
-        "results/aligned/{input1}_aln_best_1_perc.sorted.bam",
-    log:
-        "logs/minimap2/{input1}.log",
-    params:
-        extra="-x map-hifi",  # optional
-        sorting="coordinate",  # optional: Enable sorting. Possible values: 'none', 'queryname' or 'coordinate'
-        sort_extra="",  # optional: extra arguments for samtools/picard
-    threads: 3
-    wrapper:
-        "v1.23.1/bio/minimap2/aligner"
-
-
-rule subset_reference_genome:
-    input: 
-        "external_data/GCA_024222315.1_ASM2422231v1_genomic.fna.gz",
-    output: 
-        "results/reference/GCA_024222315.1_ASM2422231v1_genomic_chromosomes.fna.gz",
-    params: 
-        awk = """awk '/^>/ {P=index($0,"JANAFA0")==0} {if(P) print}'"""
-    shell: 
-        """gunzip -c {input} | {params.awk} | gzip > {output}"""
-
-rule minimap2_bam_sorted_best_5_perc:
-    input:
-        target="external_data/GCA_024222315.1_ASM2422231v1_genomic.fna.gz",  # can be either genome index or genome fasta
-        query="results/filtered/THYME_607L_hifi_best_5_perc.fastq.gz",
-    output:
-        "results/aligned/chr_aln_best_5_perc.sorted.bam",
-    log:
-        "logs/minimap2/chr_aln_best_5_perc.log",
-    params:
-        extra="-x map-hifi",  # optional
-        sorting="coordinate",  # optional: Enable sorting. Possible values: 'none', 'queryname' or 'coordinate'
-        sort_extra="",  # optional: extra arguments for samtools/picard
-    benchmark: 
-        "benchmarks/minimap2/chr_aln_best_5_perc.log"    
-    threads: 3
-    wrapper:
-        "v1.23.1/bio/minimap2/aligner"
+include: "map_candidates_to_assembly.smk"
+include: "map_candidates_to_long_reads.smk"
+include: "map_candidates_to_scaffolded.smk"
+include: "map_long_reads_to_reference.smk"
+include: "miscellaneous.smk"
+include: "quality_assesment.smk"
+include: "scaffolding.smk"
+include: "stats_long_reads_to_reference.smk"
+include: "subsample_by_quality.smk"

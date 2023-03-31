@@ -1,4 +1,10 @@
 *.rds
+*.fasta
+*.fna
+*.fai
+*.stats
+reads/**
+*.csv
 *.pdf
 *.html
 *.RDS
