@@ -16,6 +16,7 @@ benchmarks/**
 !benchmarks/README
 .cache
 .snakemake/**
+resources/**
 *.gz
 *.html
 .Rproj.user
