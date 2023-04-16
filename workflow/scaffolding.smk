@@ -55,3 +55,21 @@ rule ragtag_scaffold:
         "ragtag.py scaffold {input.reference} {input.query} "
         "-t {threads} -e {input.exclude} {params.extra} "
         "-o {output} 2> {log}"
+
+rule ragtag_scaffold_final:
+    input:
+        reference="external_data/GCA_024222315.1_ASM2422231v1_genomic.fna",
+        query="external_data/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
+    conda:
+        "envs/ragtag.yaml"
+    log:
+        "logs/ragtag/scaffold_10k_q30_GCA_024222315_infergaps.log",
+    output:
+        directory("results/ragtag_scaffold/scaffold_10k_q30_GCA_024222315_infergaps"),
+    params:
+        extra="-r",  # infer gap sizes
+    threads: 3
+    shell:
+        "ragtag.py scaffold {input.reference} {input.query} "
+        "-t {threads} {params.extra} "
+        "-o {output} 2> {log}"
