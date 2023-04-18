@@ -1,4 +1,5 @@
 library(tidyverse)
+library(ggtext)
 source("analysis/00-miscellaneous/format.R")
 assembly_report <- "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/024/222/315/GCA_024222315.1_ASM2422231v1/GCA_024222315.1_ASM2422231v1_assembly_report.txt"
 col_names <- c(
@@ -50,10 +51,16 @@ p1 <- data |>
   geom_col()+
   scale_fill_manual(values = c(chrom_hues, "gray"))+
   geom_vline(xintercept = tv_size_exp / tq_size, alpha = 0.7, linetype=2)+
-  theme(legend.position="none")
+  theme(legend.position="none")+
+  labs(
+    #title = "Ratio between *T. vulgaris* and *T. quinquecostatus* size",
+    y = "Pseudo-chromosome",
+    x = "Ratio"
+  ) +
+  theme(axis.title.y = ggtext::element_markdown())
 
 ggsave(
-  p1, filename="analysis/02-compare_genome_sizes/genome_size_ratio.svg",
+  p1, filename="analysis/02-compare_genome_sizes/genome_size_ratio.pdf",
   width = fig.witdh, height=fig.height, units = "mm"
 )
 
