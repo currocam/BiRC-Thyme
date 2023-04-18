@@ -15,6 +15,7 @@ chromosomes <- c(
   "CM044173.1", "CM044174.1", "CM044175.1",
   "CM044176.1"
 )
+chrom_hues <- get_wants_hue(length(chromosomes))
 
 reference <- assembly_report |>
   read_tsv(comment = "#",col_names = col_names, show_col_types = FALSE) |>
@@ -45,16 +46,11 @@ tv_size_exp <- dna_amount_in_pg * 1000000000
 data$expected_ratio <- tv_size_exp / tq_size
 
 p1 <- data |>
-  rename(Observed = ratio, Expected = expected_ratio) |>
-  pivot_longer(
-    cols = c("Observed", "Expected"),
-    values_to = "Ratio", names_to = "Type") |>
-  ggplot(aes(y = chrom, x = Ratio, color = chrom))+
-  geom_line(aes(group = chrom)) +
-  geom_point(aes(shape = Type)) +
-  scale_color_manual(values = c(chrom_hues, "gray"))+
-  guides(color = FALSE)+
-  theme(legend.position="bottom")
+  ggplot(aes(y = chrom, x = ratio, fill = chrom))+
+  geom_col()+
+  scale_fill_manual(values = c(chrom_hues, "gray"))+
+  geom_vline(xintercept = tv_size_exp / tq_size, alpha = 0.7, linetype=2)+
+  theme(legend.position="none")
 
 ggsave(
   p1, filename="analysis/02-compare_genome_sizes/genome_size_ratio.svg",
