@@ -1,0 +1,8 @@
+\section*{Infering gap size} \label{sec:infergapsize}
+As established by Alonge \etal ~ \cite{alongeAutomatedAssemblyScaffolding2022}, RagTag infers the gap size between two adjacent sequences $\textrm{seq1}$ and \textrm{seq2} according to (\ref{eq:infergapsize})
+
+\begin{equation}\label{eq:infergapsize}
+\textrm{gapsize}  = \left(\textrm{aln2}_\textrm{rs} - \textrm{aln2}_\textrm{qs}\right) - \left(\textrm{aln1}_\textrm{re} - \textrm{aln1}_\textrm{qe} + \textrm{len}(\textrm{rs}\right)
+\end{equation}
+
+Where $\textrm{rs}$, $\textrm{re}$, $\textrm{qs}$ and $\textrm{qe}$ denote the start and end position of the alignment in the reference and query sequence, respectively. If the gap size is smaller than 100 bp or bigger than 100000 bp, the inserted gap is forced to be 100 bp, indicating an unknown gap according to the AGP specification.~\cite{AGPSpecificationV2} 
