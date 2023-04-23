@@ -1,0 +1,1 @@
+paftools.js sam2paf candidates_hifiasm_scaffold_GCA_024222315.sam -p > candidates_hifiasm_scaffold_GCA_024222315.paf
