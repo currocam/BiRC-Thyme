@@ -1,0 +1,112 @@
+%% Creator: Inkscape 1.2.2 (732a01da63, 2022-12-09), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file '05-posterior_var_edited.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{510bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.69411765)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{05-posterior_var_edited.pdf}}%
+    \put(0.54411763,0.39160783){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\lambda$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{05-posterior_var_edited.pdf}}%
+    \put(0.51384312,0.64535293){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$p$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{05-posterior_var_edited.pdf}}%
+    \put(0.16594117,0.19417647){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2.0\end{tabular}}}}%
+    \put(0.43758822,0.19417647){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2.2\end{tabular}}}}%
+    \put(0.70923528,0.19417647){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2.4\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{05-posterior_var_edited.pdf}}%
+    \put(0.20178431,0.44792156){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.74\end{tabular}}}}%
+    \put(0.37950979,0.44792156){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.75\end{tabular}}}}%
+    \put(0.55723528,0.44792156){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.76\end{tabular}}}}%
+    \put(0.73498037,0.44792156){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.77\end{tabular}}}}%
+    \put(0.91270586,0.44792156){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.78\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{05-posterior_var_edited.pdf}}%
+    \put(0.0877647,0.4815294){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0\end{tabular}}}}%
+    \put(0.07031372,0.51474509){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}50\end{tabular}}}}%
+    \put(0.05286274,0.54794116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}100\end{tabular}}}}%
+    \put(0.05286274,0.58113724){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}150\end{tabular}}}}%
+    \put(0.05286274,0.61433332){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}200\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{05-posterior_var_edited.pdf}}%
+    \put(0.0877647,0.22778431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0\end{tabular}}}}%
+    \put(0.07031372,0.27370588){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}10\end{tabular}}}}%
+    \put(0.07031372,0.31962744){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}20\end{tabular}}}}%
+    \put(0.07031372,0.36556862){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}30\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{05-posterior_var_edited.pdf}}%
+    \put(0.51382352,0.15692156){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Value\end{tabular}}}}%
+    \put(0.03815686,0.38090195){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Density\end{tabular}}}}}%
+    \put(0.01794375,0.11461698){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Pseudo-chromosome\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{05-posterior_var_edited.pdf}}%
+    \put(0.06975615,0.0782112){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044164.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{05-posterior_var_edited.pdf}}%
+    \put(0.06975616,0.04459056){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044165.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{05-posterior_var_edited.pdf}}%
+    \put(0.06975616,0.01108447){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044166.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{05-posterior_var_edited.pdf}}%
+    \put(0.31509546,0.11147251){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044167.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{05-posterior_var_edited.pdf}}%
+    \put(0.31509546,0.07795291){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044168.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{05-posterior_var_edited.pdf}}%
+    \put(0.31509546,0.04444682){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044169.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{05-posterior_var_edited.pdf}}%
+    \put(0.31507586,0.01108447){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044170.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{05-posterior_var_edited.pdf}}%
+    \put(0.56070858,0.11149212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044171.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{05-posterior_var_edited.pdf}}%
+    \put(0.56070858,0.0780481){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044172.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{05-posterior_var_edited.pdf}}%
+    \put(0.56072819,0.04520912){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044173.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{05-posterior_var_edited.pdf}}%
+    \put(0.56072819,0.01158848){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044174.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{05-posterior_var_edited.pdf}}%
+    \put(0.80636092,0.11147252){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044175.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{05-posterior_var_edited.pdf}}%
+    \put(0.80634131,0.0784177){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044176.1\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
