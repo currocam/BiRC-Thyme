@@ -14,10 +14,12 @@ p1 <- data |>
   geom_density()+
   scale_color_manual(values = chrom_hues)+
   facet_wrap(~name,ncol = 1,scales = "free")+
-  theme(legend.position="bottom")
+  theme(legend.position="bottom")+
+  xlab("Value")+
+  ylab("Density")
 
 ggsave(
-  p1, filename="analysis/01-mapped_reads-model/05-posterior_var.svg",
+  p1, filename="analysis/01-mapped_reads-model/05-posterior_var.pdf",
   width = fig.witdh, height=fig.height, units = "mm"
   )
 
@@ -27,10 +29,12 @@ p2 <- data |>
   geom_line()+
   scale_color_manual(values = chrom_hues)+
   facet_wrap(~name,ncol = 1,scales = "free")+
-  theme(legend.position="bottom")
+  theme(legend.position="bottom")+
+  xlab("Nº Iteration")+
+  ylab("Value")
 p2
 
 ggsave(
-  p2, filename="analysis/01-mapped_reads-model/05-posterior_iterations.svg",
+  p2, filename="analysis/01-mapped_reads-model/05-posterior_iterations.pdf",
   width = fig.witdh, height=fig.height, units = "mm"
 )
