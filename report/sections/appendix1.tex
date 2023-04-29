@@ -5,14 +5,4 @@ As established by Alonge \etal ~ \cite{alongeAutomatedAssemblyScaffolding2022}, 
 \textrm{gapsize}  = \left(\textrm{aln2}_\textrm{rs} - \textrm{aln2}_\textrm{qs}\right) - \left(\textrm{aln1}_\textrm{re} - \textrm{aln1}_\textrm{qe} + \textrm{len}(\textrm{rs}\right)
 \end{equation}
 
-Where $\textrm{rs}$, $\textrm{re}$, $\textrm{qs}$ and $\textrm{qe}$ denote the start and end position of the alignment in the reference and query sequence, respectively. If the gap size is smaller than 100 bp or bigger than 100000 bp, the inserted gap is forced to be 100 bp, indicating an unknown gap according to the AGP specification.~\cite{AGPSpecificationV2} 
-
-\section{Coverage of whole-genome aslignment}
-
-\graphicspath{{gfx/}}
-\begin{sidewaysfigure}
-\centering
-\input{gfx/coverage.pdf_tex}
-\caption{Visualization of the whole-genome alignment where the covered regions of \textit{T. quinquecostatus} genome assembly are shown in blue. }    
-\label{fig:coverage}
-\end{sidewaysfigure} 
+Where $\textrm{rs}$, $\textrm{re}$, $\textrm{qs}$ and $\textrm{qe}$ denote the start and end position of the alignment in the reference and query sequence, respectively. If the gap size is smaller than 100 bp or bigger than 100000 bp, the inserted gap is forced to be 100 bp, indicating an unknown gap according to the AGP specification\footnote{\url{https://www.ncbi.nlm.nih.gov/assembly/agp/AGP_Specification/}. Visited on 04/20/2023}.
