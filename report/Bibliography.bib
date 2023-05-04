@@ -78,7 +78,7 @@
   abstract = {MOTIVATION: Contigs assembled from the second generation sequencing short reads may contain misassemblies, and thus complicate downstream analysis or even lead to incorrect analysis results. Fortunately, with more and more sequenced species available, it becomes possible to use the reference genome of a closely related species to detect misassemblies. In addition, long reads of the third generation sequencing technology have been more and more widely used, and can also help detect misassemblies. RESULTS: Here, we introduce ReMILO, a reference assisted misassembly detection algorithm that uses both short reads and PacBio SMRT long reads. ReMILO aligns the initial short reads to both the contigs and reference genome, and then constructs a novel data structure called red-black multipositional de Bruijn graph to detect misassemblies. In addition, ReMILO also aligns the contigs to long reads and find their differences from the long reads to detect more misassemblies. In our performance test on short read assemblies of human chromosome 14 data, ReMILO can detect 41.8-77.9\% extensive misassemblies and 33.6-54.5\% local misassemblies. On hybrid short and long read assemblies of S.pastorianus data, ReMILO can also detect 60.6-70.9\% extensive misassemblies and 28.6-54.0\% local misassemblies. AVAILABILITY AND IMPLEMENTATION: The ReMILO software can be downloaded for free under Artistic License 2.0 from this site: https://github.com/songc001/remilo. CONTACT: baoe@bjtu.edu.cn. SUPPLEMENTARY INFORMATION: Supplementary data are available at Bioinformatics online.},
   langid = {english},
   pmid = {28961789},
-  keywords = {Algorithms,Chromosomes; Human; Pair 14,High-Throughput Nucleotide Sequencing,Humans,Sequence Analysis; DNA,Software},
+  keywords = {Algorithms,{Chromosomes, Human, Pair 14},High-Throughput Nucleotide Sequencing,Humans,{Sequence Analysis, DNA},Software},
   file = {C\:\\Users\\au726682\\Zotero\\storage\\ICQT9YL6\\Bao et al. - 2018 - ReMILO reference assisted misassembly detection a.pdf}
 }
 
@@ -201,6 +201,21 @@
   bibsource = {dblp computer science bibliography, https://dblp.org},
   biburl = {https://dblp.org/rec/conf/aistats/GeXG18.bib},
   timestamp = {Wed, 03 Apr 2019 18:17:22 +0200}
+}
+
+@techreport{flynnRepeatModeler2AutomatedGenomic2019,
+  type = {Preprint},
+  title = {{{RepeatModeler2}}: Automated Genomic Discovery of Transposable Element Families},
+  shorttitle = {{{RepeatModeler2}}},
+  author = {Flynn, Jullien M. and Hubley, Robert and Goubert, Cl{\'e}ment and Rosen, Jeb and Clark, Andrew G. and Feschotte, C{\'e}dric and Smit, Arian F.},
+  year = {2019},
+  month = nov,
+  institution = {{Genomics}},
+  doi = {10.1101/856591},
+  urldate = {2023-04-30},
+  abstract = {Abstract                        The accelerating pace of genome sequencing throughout the tree of life is driving the need for improved unsupervised annotation of genome components such as transposable elements (TEs). Because the types and sequences of TEs are highly variable across species, automated TE discovery and annotation are challenging and time-consuming tasks. A critical first step is the de novo identification and accurate compilation of sequence models representing all the unique TE families dispersed in the genome. Here we introduce RepeatModeler2, a new pipeline that greatly facilitates this process. This new program brings substantial improvements over the original version of RepeatModeler, one of the most widely used tools for TE discovery. In particular, this version incorporates a module for structural discovery of complete LTR retroelements, which are widespread in eukaryotic genomes but recalcitrant to automated identification because of their size and sequence complexity. We benchmarked RepeatModeler2 on three model species with diverse TE landscapes and high-quality, manually curated TE libraries:             Drosophila melanogaster             (fruit fly),             Danio rerio             (zebrafish), and             Oryza sativa             (rice). In these three species, RepeatModeler2 identified approximately three times more consensus sequences matching with {$>$}95\% sequence identity and sequence coverage to the manually curated sequences than the original RepeatModeler. As expected, the greatest improvement is for LTR retroelements. The program had an extremely low false positive rate when applied to simulated genomes devoid of TEs. Thus, RepeatModeler2 represents a valuable addition to the genome annotation toolkit that will enhance the identification and study of TEs in eukaryotic genome sequences. RepeatModeler2 is available as source code or a containerized package under an open license (             https://github.com/Dfam-consortium/RepeatModeler             ,             https://github.com/Dfam-consortium/TETools             ).                                   Significance             Genome sequences are being produced for more and more eukaryotic species. The bulk of these genomes is composed of parasitic, self-mobilizing transposable elements (TEs) that play important roles in organismal evolution. Thus there is a pressing need for developing software that can accurately identify the diverse set of TEs dispersed in genome sequences. Here we introduce RepeatModeler2, an easy-to-use package for the curation of reference TE libraries which can be applied to any eukaryotic species. Through several major improvements over the previous version, RepeatModeler2 is able to produce libraries that recapitulate the known composition of three model species with some of the most complex TE landscapes. Thus RepeatModeler2 will greatly enhance the discovery and annotation of TEs in genome sequences.},
+  langid = {english},
+  file = {C\:\\Users\\au726682\\Zotero\\storage\\29KMEHB9\\Flynn et al. - 2019 - RepeatModeler2 automated genomic discovery of tra.pdf}
 }
 
 @article{fukasawaLongQCQualityControl2020,
@@ -352,7 +367,7 @@
   langid = {english},
   pmcid = {PMC6137996},
   pmid = {29750242},
-  keywords = {Algorithms,Base Sequence,Genomics,High-Throughput Nucleotide Sequencing,Sequence Analysis; DNA,Software},
+  keywords = {Algorithms,Base Sequence,Genomics,High-Throughput Nucleotide Sequencing,{Sequence Analysis, DNA},Software},
   file = {C\:\\Users\\au726682\\Zotero\\storage\\RJKETGAK\\Li - 2018 - Minimap2 pairwise alignment for nucleotide sequen.pdf}
 }
 
@@ -371,7 +386,7 @@
   langid = {english},
   pmcid = {PMC5681816},
   pmid = {29126390},
-  keywords = {Arabidopsis,Assembly evaluation,De novo,Genome assembly,Genome; Plant,Genomics,High-Throughput Nucleotide Sequencing,Reference Standards,Reference-guided,Related species,Reproducibility of Results,Species Specificity},
+  keywords = {Arabidopsis,Assembly evaluation,De novo,Genome assembly,{Genome, Plant},Genomics,High-Throughput Nucleotide Sequencing,Reference Standards,Reference-guided,Related species,Reproducibility of Results,Species Specificity},
   file = {C\:\\Users\\au726682\\Zotero\\storage\\ECUKZUU8\\Lischer and Shimizu - 2017 - Reference-guided de novo assembly approach improve.pdf}
 }
 
@@ -427,6 +442,23 @@
   file = {C\:\\Users\\au726682\\Zotero\\storage\\CA5PXSF7\\Mölder et al. - 2021 - Sustainable data analysis with Snakemake.pdf}
 }
 
+@article{parraCEGMAPipelineAccurately2007,
+  title = {{{CEGMA}}: A Pipeline to Accurately Annotate Core Genes in Eukaryotic Genomes},
+  shorttitle = {{{CEGMA}}},
+  author = {Parra, Genis and Bradnam, Keith and Korf, Ian},
+  year = {2007},
+  month = may,
+  journal = {Bioinformatics},
+  volume = {23},
+  number = {9},
+  pages = {1061--1067},
+  issn = {1367-4803},
+  doi = {10.1093/bioinformatics/btm071},
+  urldate = {2023-04-30},
+  abstract = {Motivation: The numbers of finished and ongoing genome projects are increasing at a rapid rate, and providing the catalog of genes for these new genomes is a key challenge. Obtaining a set of well-characterized genes is a basic requirement in the initial steps of any genome annotation process. An accurate set of genes is needed in order to learn about species-specific properties, to train gene-finding programs, and to validate automatic predictions. Unfortunately, many new genome projects lack comprehensive experimental data to derive a reliable initial set of genes.Results: In this study, we report a computational method, CEGMA (Core Eukaryotic Genes Mapping Approach), for building a highly reliable set of gene annotations in the absence of experimental data. We define a set of conserved protein families that occur in a wide range of eukaryotes, and present a mapping procedure that accurately identifies their exon\textendash intron structures in a novel genomic sequence. CEGMA includes the use of profile-hidden Markov models to ensure the reliability of the gene structures. Our procedure allows one to build an initial set of reliable gene annotations in potentially any eukaryotic genome, even those in draft stages.Availability: Software and data sets are available online at http://korflab.ucdavis.edu/Datasets.Contact: ~ifkorf@ucdavis.eduSupplementary information: Supplementary data are available at Bioinformatics online.},
+  file = {C\:\\Users\\au726682\\Zotero\\storage\\U7YTI8NF\\Parra et al. - 2007 - CEGMA a pipeline to accurately annotate core gene.pdf;C\:\\Users\\au726682\\Zotero\\storage\\BPVTSACL\\272633.html}
+}
+
 @misc{PlantDNACvalues,
   title = {Plant {{DNA C-values Database}} | {{Royal Botanic Gardens}}, {{Kew}}},
   urldate = {2023-04-22},
@@ -475,7 +507,7 @@
   abstract = {One of the most complex and computationally intensive tasks of genome sequence analysis is genome assembly. Even today, few centres have the resources, in both software and hardware, to assemble a genome from the thousands or millions of individual sequences generated in a whole-genome shotgun sequencing project. With the rapid growth in the number of sequenced genomes has come an increase in the number of organisms for which two or more closely related species have been sequenced. This has created the possibility of building a comparative genome assembly algorithm, which can assemble a newly sequenced genome by mapping it onto a reference genome. We describe here a novel algorithm for comparative genome assembly that can accurately assemble a typical bacterial genome in less than four minutes on a standard desktop computer. The software is available as part of the open-source AMOS project.},
   langid = {english},
   pmid = {15383210},
-  keywords = {Algorithms,Chromosome Mapping,Consensus Sequence,DNA Mutational Analysis,Genetic Variation,Genome; Bacterial,Sequence Alignment,Sequence Analysis; DNA,Sequence Homology; Nucleic Acid,Software,Streptococcus agalactiae},
+  keywords = {Algorithms,Chromosome Mapping,Consensus Sequence,DNA Mutational Analysis,Genetic Variation,{Genome, Bacterial},Sequence Alignment,{Sequence Analysis, DNA},{Sequence Homology, Nucleic Acid},Software,Streptococcus agalactiae},
   file = {C\:\\Users\\au726682\\Zotero\\storage\\GJW3U4T2\\Pop et al. - 2004 - Comparative genome assembly.pdf}
 }
 
@@ -545,7 +577,7 @@
   langid = {english},
   pmcid = {PMC9300133},
   pmid = {34784084},
-  keywords = {Chromosomes; Plant,de novo genome assembly,Genome; Plant,HiFi reads,HiFiasm,High-Throughput Nucleotide Sequencing,Macadamia,Macadamia jansenii,mitochondrial genome,nuclear genome,nuclear ribosomal RNA,plastid genome,Sequence Analysis; DNA,technical advance},
+  keywords = {{Chromosomes, Plant},de novo genome assembly,{Genome, Plant},HiFi reads,HiFiasm,High-Throughput Nucleotide Sequencing,Macadamia,Macadamia jansenii,mitochondrial genome,nuclear genome,nuclear ribosomal RNA,plastid genome,{Sequence Analysis, DNA},technical advance},
   file = {C\:\\Users\\au726682\\Zotero\\storage\\VATFFT7Q\\Sharma et al. - 2022 - De novo chromosome level assembly of a plant genom.pdf}
 }
 
@@ -566,6 +598,22 @@
   langid = {english},
   keywords = {chromosome-level genome,glandular secretory trichome,monoterpenoids,phylogenetics},
   file = {C\:\\Users\\au726682\\Zotero\\storage\\4FFEG4JS\\Sun et al. - 2022 - Chromosome-level assembly and analysis of the Thym.pdf;C\:\\Users\\au726682\\Zotero\\storage\\FRFZY5G9\\S2590346222002450.html}
+}
+
+@article{sunPopulationDiversityAnalyses2023,
+  title = {Population Diversity Analyses Provide Insights into Key Horticultural Traits of {{Chinese}} Native Thymes},
+  author = {Sun, Meiyu and Zhang, Yanan and Bai, Hongtong and Sun, Guofeng and Zhang, Jinzheng and Shi, Lei},
+  year = {2023},
+  month = feb,
+  journal = {Horticulture Research},
+  volume = {10},
+  number = {2},
+  pages = {uhac262},
+  issn = {2052-7276},
+  doi = {10.1093/hr/uhac262},
+  urldate = {2023-05-04},
+  abstract = {Chinese native thymes (CNTs) in the genus Thymus (family Lamiaceae) are rich in bioactive terpenes, which exert antiviral, anti-inflammatory, antioxidation, immunological, and antimicrobial effects. Plants exhibit morphological variation, including erect-type and creeping-type growth forms; however, the molecular mechanisms underlying important horticultural traits have not been determined. Here, we collected 39 CNTs providing strategic plant resources for studies of lignin, terpenoids, and glandular trichomes of thymes. Using resequencing data as well as phenotypic, metabonomic, phylogenetic, population genetic, and transcriptomic analyses, we identified and characterized key genes involved in lignin biosynthesis, terpenoid biosynthesis, and glandular trichome formation. We found many regulatory genes or transcription factors related to these three important horticultural traits, including genes encoding caffeic acid O-methyltransferase (COMT), terpene synthase (TPS), v-myb avian myeloblastosis viral oncogene homolog (MYB), and homeodomain-leucine zipper (HD-ZIP). Population diversity analyses provided insights into growth form, terpenoid, and glandular trichome evolution in CNTs. Furthermore, our results revealed that T. mongolicus accessions might be wild ancestors, and T. quinquecostatus, T. quinquecostatus var. asiaticus, and T. quinquecostatus var. przewalskii might be transitional accessions that derived from T. mongolicus accessions. Finally, T. nervulosus, T. inaequalis, T. mandschuricus, T. curtus, T. amurensis, T. proximus, T. altaicus, T. roseus, and T. marschallianus showed high divergence. We found evidence for introgression between erect-type European cultivated thymes and CNTs. These findings improve our understanding of the determinants of variation in horticultural traits and provide candidate loci for research and breeding.},
+  file = {C\:\\Users\\au726682\\Zotero\\storage\\653AZKTD\\Sun et al. - 2023 - Population diversity analyses provide insights int.pdf;C\:\\Users\\au726682\\Zotero\\storage\\Q937PXB5\\6865342.html}
 }
 
 @article{tamazianChromosomerReferencebasedGenome2016,
@@ -704,7 +752,7 @@
   abstract = {Genome assemblies can form the basis of comparative analyses fostering insight into the evolutionary genetics of a parasite's pathogenicity, host-pathogen interactions, environmental constraints and invasion biology; however, the length and complexity of many parasite genomes has hampered the development of well-resolved assemblies. In order to improve Trichinella genome assemblies, the genome of the sylvatic encapsulated species Trichinella murrelli was sequenced using third-generation, long-read technology and, using syntenic comparisons, scaffolded to a reference genome assembly of Trichinella spiralis, markedly improving both. A high-quality draft assembly for T. murrelli was achieved that totalled 63{$\cdot$}2 Mbp, half of which was condensed into 26 contigs each longer than 571 000 bp. When compared with previous assemblies for parasites in the genus, ours required 10-fold fewer contigs, which were five times longer, on average. Better assembly across repetitive regions also enabled resolution of 8 Mbp of previously indeterminate sequence. Furthermore, syntenic comparisons identified widespread scaffold misassemblies in the T. spiralis reference genome. The two new assemblies, organized for the first time into three chromosomal scaffolds, will be valuable resources for future studies linking phenotypic traits within each species to their underlying genetic bases.},
   langid = {english},
   pmid = {28583210},
-  keywords = {Animals,chromosome,Evolution; Molecular,Genome; Helminth,Genomics,long-read assembly,nematode,repetitive DNA,scaffolding,Sequence Analysis; DNA,synteny,Synteny,Trichinella},
+  keywords = {Animals,chromosome,{Evolution, Molecular},{Genome, Helminth},Genomics,long-read assembly,nematode,repetitive DNA,scaffolding,{Sequence Analysis, DNA},synteny,Synteny,Trichinella},
   file = {C\:\\Users\\au726682\\Zotero\\storage\\ZNLP4IFM\\Thompson et al. - 2017 - Long-read sequencing improves assembly of Trichine.pdf}
 }
 
