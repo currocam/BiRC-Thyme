@@ -1,0 +1,91 @@
+%% Creator: Inkscape 1.2.2 (732a01da63, 2022-12-09), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'coverage.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{510bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.69411765)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{coverage.pdf}}%
+    \put(0.88047621,0.6573333){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044164.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{coverage.pdf}}%
+    \put(0.88047621,0.60870587){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044165.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{coverage.pdf}}%
+    \put(0.88047621,0.56007845){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044166.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{coverage.pdf}}%
+    \put(0.88047621,0.51145096){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044167.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{coverage.pdf}}%
+    \put(0.88047621,0.4628235){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044168.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{coverage.pdf}}%
+    \put(0.88047621,0.41417645){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044169.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{coverage.pdf}}%
+    \put(0.88047621,0.365549){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044170.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{coverage.pdf}}%
+    \put(0.88047621,0.31692157){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044171.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{coverage.pdf}}%
+    \put(0.88047621,0.26829411){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044172.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{coverage.pdf}}%
+    \put(0.88047621,0.21966666){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044173.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{coverage.pdf}}%
+    \put(0.88047621,0.17103922){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044174.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{coverage.pdf}}%
+    \put(0.88047621,0.12239215){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044175.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{coverage.pdf}}%
+    \put(0.88047621,0.0737647){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CM044176.1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{coverage.pdf}}%
+    \put(0.04076471,0.04023529){\color[rgb]{0.30196078,0.30196078,0.30196078}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0 Mb\end{tabular}}}}%
+    \put(0.21641176,0.04023529){\color[rgb]{0.30196078,0.30196078,0.30196078}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}10 Mb\end{tabular}}}}%
+    \put(0.3969804,0.04023529){\color[rgb]{0.30196078,0.30196078,0.30196078}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}20 Mb\end{tabular}}}}%
+    \put(0.57754898,0.04023529){\color[rgb]{0.30196078,0.30196078,0.30196078}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}30 Mb\end{tabular}}}}%
+    \put(0.75809803,0.04023529){\color[rgb]{0.30196078,0.30196078,0.30196078}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}40 Mb\end{tabular}}}}%
+    \put(0.93866665,0.04023529){\color[rgb]{0.30196078,0.30196078,0.30196078}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}50 Mb\end{tabular}}}}%
+    \put(0.40394116,0.0154902){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Position in sequence\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
