@@ -33,7 +33,13 @@ ILLUMINA_VALIDATION_OUTPUT = [
 ]
 include: "illumina_validation.smk"
 
-        
+MAP_CANDIDATES = [
+    "results/bwa/candidates_THYME_607L_hifi.sam",
+    "results/bwa/candidates_hifiasm_10k_q30.sam",
+    "results/bwa/candidates_hifiasm_10k_q30_ragtag_all.sam",
+]
+include: "candidates.smk"
+
 rule all:
     input:
         QUALITY_CONTROL_OUTPUT,
@@ -41,12 +47,4 @@ rule all:
         SCAFFOLD_OUTPUT,
         ASSEMBLY_QC_OUTPUT,
         ILLUMINA_VALIDATION_OUTPUT,
-        "results/bwa/candidates_THYME_607L_hifi.sam",
-        "results/aligned_hifiasm/candidates_filtered_contigs.sorted.bam",
-        "results/bwa/candidates_hifiasm_10k_q30.sam",
-
-include: "map_candidates_to_assembly.smk"
-include: "map_candidates_to_long_reads.smk"
-include: "map_candidates_to_scaffolded.smk"
-include: "miscellaneous.smk"
-include: "scaffolding.smk"
+        MAP_CANDIDATES
