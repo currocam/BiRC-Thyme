@@ -1,1 +1,0 @@
-This directory contains log files with runtime information. 
