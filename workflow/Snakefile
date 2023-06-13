@@ -18,20 +18,35 @@ ASSEMBLY_QC_OUTPUT = [
 ],
 include: "assembly_qc.smk"
 
+SELECTED_SAMPLES_EXPERIMENT = [
+    "SAa046", "SAa062", "THa252", "THb134", "Thym607"
+]
+ILLUMINA_VALIDATION_OUTPUT = [
+    expand("results/bwa_illumina/{sample}_{hyb}.bam.{type}",
+        type = ["stats", "flagstats"], hyb = ["hyb1", "hyb2"],
+        sample = SELECTED_SAMPLES_EXPERIMENT
+        ),
+    expand(
+            "analysis/03-count_illumina_reads_assembly/counts/{sample}_{hyb}.csv",
+            hyb = ["hyb1", "hyb2"], sample = SELECTED_SAMPLES_EXPERIMENT
+        )
+]
+include: "illumina_validation.smk"
+
+        
 rule all:
     input:
         QUALITY_CONTROL_OUTPUT,
         DATA_EXPLORATION_OUTPUT,
         SCAFFOLD_OUTPUT,
         ASSEMBLY_QC_OUTPUT,
+        ILLUMINA_VALIDATION_OUTPUT,
         "results/bwa/candidates_THYME_607L_hifi.sam",
         "results/aligned_hifiasm/candidates_filtered_contigs.sorted.bam",
         "results/bwa/candidates_hifiasm_10k_q30.sam",
 
-
 include: "map_candidates_to_assembly.smk"
 include: "map_candidates_to_long_reads.smk"
 include: "map_candidates_to_scaffolded.smk"
-include: "map_illumina_to_assembly.smk"
 include: "miscellaneous.smk"
 include: "scaffolding.smk"
