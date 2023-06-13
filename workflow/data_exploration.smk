@@ -1,5 +1,3 @@
-REFERENCE_GENOME = "external_data/GCA_024222315.1_ASM2422231v1_genomic.fna.gz"
-
 # Filter long reads by quality
 rule filtlong:
     input:
@@ -18,7 +16,7 @@ rule filtlong:
 # Align long reads to reference
 rule minimap2_bam_sorted_best_5_perc:
     input:
-        target=REFERENCE_GENOME,  # can be either genome index or genome fasta
+        target=T_QUINQUECOSTATUS_GENOME,  # can be either genome index or genome fasta
         query="results/filtered/THYME_607L_hifi_best_5_perc.fastq.gz",
     output:
         "results/aligned/chr_aln_best_5_perc.sorted.bam",
@@ -53,7 +51,7 @@ rule samtools_view:
 rule pysamstats_coverage_binned:
     input:
         bamfile="results/aligned/chr_aln_best_5_perc_primary_only.bam",
-        fastafile=REFERENCE_GENOME,
+        fastafile=T_QUINQUECOSTATUS_GENOME,
     output:
         "results/aligned_stats/binned_coverage.txt",
     conda:

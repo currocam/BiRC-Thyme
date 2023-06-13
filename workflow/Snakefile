@@ -1,16 +1,23 @@
-include: "raw_reads_qc.smk"
+T_QUINQUECOSTATUS_GENOME = "external_data/GCA_024222315.1_ASM2422231v1_genomic.fna.gz"
+
 QUALITY_CONTROL_OUTPUT = [
     "results/qc/fastqc/THYME_607L_hifi.html",
     "results/qc/longqc/THYME_607L_hifi"
 ]
-include: "data_exploration.smk"
+include: "raw_reads_qc.smk"
+
 DATA_EXPLORATION_OUTPUT = "results/aligned_stats/binned_coverage.txt"
+include: "data_exploration.smk"
+
+RAGTAG_OUTDIR = "results/ragtag_scaffold/scaffold_10k_q30_GCA_024222315_infergaps"
+SCAFFOLD_OUTPUT = [f"{RAGTAG_OUTDIR}/ragtag.scaffold.{suff}" for suff in ["fasta", "agp", "stats"]]
+include: "ragtag.smk"
 
 rule all:
     input:
         QUALITY_CONTROL_OUTPUT,
         DATA_EXPLORATION_OUTPUT,
-        "results/bwa/best_5_perc_aligned.sam",
+        SCAFFOLD_OUTPUT,
         "results/bwa/candidates_THYME_607L_hifi.sam",
         "results/aligned_hifiasm/candidates_filtered_contigs.sorted.bam",
         "results/bwa/candidates_hifiasm_10k_q30.sam",
@@ -19,10 +26,7 @@ rule all:
 include: "map_candidates_to_assembly.smk"
 include: "map_candidates_to_long_reads.smk"
 include: "map_candidates_to_scaffolded.smk"
-include: "map_long_reads_to_reference.smk"
 include: "map_illumina_to_assembly.smk"
 include: "miscellaneous.smk"
 include: "scaffolding.smk"
-include: "stats_long_reads_to_reference.smk"
-include: "subsample_by_quality.smk"
 include: "assembly_quality_assesment.smk"
