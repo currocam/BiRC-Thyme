@@ -3,17 +3,14 @@ QUALITY_CONTROL_OUTPUT = [
     "results/qc/fastqc/THYME_607L_hifi.html",
     "results/qc/longqc/THYME_607L_hifi"
 ]
+include: "data_exploration.smk"
+DATA_EXPLORATION_OUTPUT = "results/aligned_stats/binned_coverage.txt"
 
 rule all:
     input:
         QUALITY_CONTROL_OUTPUT,
-        "results/filtered/THYME_607L_hifi_best_1_perc.fastq.gz",
-        "results/aligned/GCA_024222315.1_ASM2422231v1_genomic_aln_best_1_perc.sorted.bam",
-        "results/aligned_stats/binned_coverage.txt",
-        "results/aligned_stats/binned_coverage_big.txt",
+        DATA_EXPLORATION_OUTPUT,
         "results/bwa/best_5_perc_aligned.sam",
-        "results/aligned_stats/coverage_subsample_minimap2.txt",
-        "results/aligned_stats/coverage_subsample_bwa.txt",
         "results/bwa/candidates_THYME_607L_hifi.sam",
         "results/aligned_hifiasm/candidates_filtered_contigs.sorted.bam",
         "results/bwa/candidates_hifiasm_10k_q30.sam",
