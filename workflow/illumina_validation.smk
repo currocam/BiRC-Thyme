@@ -42,6 +42,8 @@ rule bwa_mem_illumina_stat:
     output:
         "results/bwa_illumina/{sample}.bam.stats"
     threads: 1
+    conda:
+        "envs/samtools.yaml"
     shell:
         "samtools stats {input} > {output}"
 
@@ -51,6 +53,8 @@ rule bwa_mem_illumina_sort:
     output:
         "results/bwa_illumina/{sample}_sorted.bam"
     threads: 1
+    conda:
+        "envs/samtools.yaml"
     shell:
         "samtools sort -o {output} {input}"
 
@@ -59,6 +63,8 @@ rule bwa_mem_illumina_index:
         "results/bwa_illumina/{sample}_sorted.bam"
     output:
         "results/bwa_illumina/{sample}_sorted.bam.bai"
+    conda:
+        "envs/samtools.yaml"
     threads: 1
     shell:
         "samtools index {input}"
@@ -69,5 +75,7 @@ rule count_mapped_to_references:
         index = "results/bwa_illumina/{sample}_sorted.bam.bai"
     output:
         "analysis/03-count_illumina_reads_assembly/counts/{sample}.csv"
+    conda:
+        "envs/seqkit.yaml"
     shell:
         "seqkit bam -C {input.bam} 2> {output}"
