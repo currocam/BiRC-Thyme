@@ -29,14 +29,21 @@ rule map_bwa_candidates_loci:
     wrapper:
         "v1.24.0/bio/bwa/mem"
 
+
 # Map candidates to the scaffolded assembly
+
 
 rule bwa_index_scaffold_assembly:
     input:
         "results/ragtag_scaffold/hifiasm_10k_q30_GCA_024222315_default/ragtag.scaffold.fasta",
     output:
         idx=multiext(
-            "results/bwa_candidates/ragtag/hifiasm_10k_q30", ".amb", ".ann", ".bwt", ".pac", ".sa"
+            "results/bwa_candidates/ragtag/hifiasm_10k_q30",
+            ".amb",
+            ".ann",
+            ".bwt",
+            ".pac",
+            ".sa",
         ),
     log:
         "logs/bwa_index/ragtag_hifiasm_10k_q30.log",
@@ -50,7 +57,12 @@ rule map_bwa_candidates_scaffold_assembly:
     input:
         reads=["external_data/candidates_filtered_contigs.fasta"],
         idx=multiext(
-            "results/bwa_candidates/ragtag/hifiasm_10k_q30", ".amb", ".ann", ".bwt", ".pac", ".sa"
+            "results/bwa_candidates/ragtag/hifiasm_10k_q30",
+            ".amb",
+            ".ann",
+            ".bwt",
+            ".pac",
+            ".sa",
         ),
     output:
         "results/bwa_candidates/candidates_hifiasm_10k_q30_ragtag.sam",

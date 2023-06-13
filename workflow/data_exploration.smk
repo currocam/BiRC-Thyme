@@ -12,7 +12,6 @@ rule filtlong:
         "filtlong --keep_percent {wildcards.percentage} {input} | gzip > {output}"
 
 
-
 # Align long reads to reference
 rule minimap2_bam_sorted_best_5_perc:
     input:
@@ -32,6 +31,7 @@ rule minimap2_bam_sorted_best_5_perc:
     wrapper:
         "v1.23.1/bio/minimap2/aligner"
 
+
 # Filter bam file only primary alignments
 rule samtools_view:
     input:
@@ -46,6 +46,7 @@ rule samtools_view:
     threads: 2
     wrapper:
         "v2.0.0/bio/samtools/view"
+
 
 # Compute windows
 rule pysamstats_coverage_binned:

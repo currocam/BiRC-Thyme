@@ -2,7 +2,9 @@ rule run_busco_euk_ragtag:
     input:
         "results/ragtag_scaffold/hifiasm_10k_q30_GCA_024222315_default_all/ragtag.scaffold.fasta",
     output:
-        out_dir=directory("results/assembly_quality/txome_busco/hifiasm_10k_q30_GCA_024222315_default_all"),
+        out_dir=directory(
+            "results/assembly_quality/txome_busco/hifiasm_10k_q30_GCA_024222315_default_all"
+        ),
         dataset_dir=directory("resources/busco_downloads"),
     log:
         "logs/busco/hifiasm_10k_q30_GCA_024222315_default_all.log",
@@ -13,6 +15,7 @@ rule run_busco_euk_ragtag:
     threads: 8
     wrapper:
         "v1.25.0/bio/busco"
+
 
 rule run_busco_euk_hifiasm:
     input:
@@ -29,4 +32,3 @@ rule run_busco_euk_hifiasm:
     threads: 8
     wrapper:
         "v1.25.0/bio/busco"
-

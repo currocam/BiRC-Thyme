@@ -14,6 +14,7 @@ rule scaffold_infer_gaps:
     wrapper:
         "v2.0.0/bio/ragtag/scaffold"
 
+
 rule scaffold_default:
     input:
         query="input/THYME_607L_hifi.fastq.gz",

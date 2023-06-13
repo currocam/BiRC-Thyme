@@ -2,42 +2,67 @@ T_QUINQUECOSTATUS_GENOME = "external_data/GCA_024222315.1_ASM2422231v1_genomic.f
 
 QUALITY_CONTROL_OUTPUT = [
     "results/qc/fastqc/THYME_607L_hifi.html",
-    "results/qc/longqc/THYME_607L_hifi"
+    "results/qc/longqc/THYME_607L_hifi",
 ]
+
+
 include: "raw_reads_qc.smk"
 
+
 DATA_EXPLORATION_OUTPUT = "results/aligned_stats/binned_coverage.txt"
+
+
 include: "data_exploration.smk"
 
+
 RAGTAG_OUTDIR = "results/ragtag_scaffold"
-SCAFFOLD_OUTPUT = [f"{RAGTAG_OUTDIR}/scaffold_10k_q30_GCA_024222315_infergaps/ragtag.scaffold.{suff}" for suff in ["fasta", "agp", "stats"]]
+SCAFFOLD_OUTPUT = [
+    f"{RAGTAG_OUTDIR}/scaffold_10k_q30_GCA_024222315_infergaps/ragtag.scaffold.{suff}"
+    for suff in ["fasta", "agp", "stats"]
+]
+
+
 include: "ragtag.smk"
 
-ASSEMBLY_QC_OUTPUT = [
-    f"results/assembly_quality/txome_busco/{suffix}" for suffix in ["hifiasm_10k_q30_GCA_024222315_default_all", "hifiasm_10k_q30"]
-],
+
+ASSEMBLY_QC_OUTPUT = (
+    [
+        f"results/assembly_quality/txome_busco/{suffix}"
+        for suffix in ["hifiasm_10k_q30_GCA_024222315_default_all", "hifiasm_10k_q30"]
+    ],
+)
+
+
 include: "assembly_qc.smk"
 
-SAMPLES_EXPERIMENT = [
-    "SAa046", "SAa062", "THa252", "THb134", "Thym607"
-]
+
+SAMPLES_EXPERIMENT = ["SAa046", "SAa062", "THa252", "THb134", "Thym607"]
 ILLUMINA_VALIDATION_OUTPUT = [
-    expand("results/bwa_illumina/{sample}_{hyb}.bam.{type}",
-        type = ["stats", "flagstats"], hyb = ["hyb1", "hyb2"],
-        sample = SAMPLES_EXPERIMENT
-        ),
     expand(
-            "analysis/03-count_illumina_reads_assembly/counts/{sample}_{hyb}.csv",
-            hyb = ["hyb1", "hyb2"], sample = SAMPLES_EXPERIMENT
-        )
+        "results/bwa_illumina/{sample}_{hyb}.bam.{type}",
+        type=["stats", "flagstats"],
+        hyb=["hyb1", "hyb2"],
+        sample=SAMPLES_EXPERIMENT,
+    ),
+    expand(
+        "analysis/03-count_illumina_reads_assembly/counts/{sample}_{hyb}.csv",
+        hyb=["hyb1", "hyb2"],
+        sample=SAMPLES_EXPERIMENT,
+    ),
 ]
+
+
 include: "illumina_validation.smk"
+
 
 MAP_CANDIDATES = [
     "results/bwa_candidates/candidates_THYME_607L_hifi.sam",
     "results/bwa_candidates/candidates_hifiasm_10k_q30_ragtag_all.sam",
 ]
+
+
 include: "candidates.smk"
+
 
 rule all:
     input:
@@ -46,16 +71,18 @@ rule all:
         SCAFFOLD_OUTPUT,
         ASSEMBLY_QC_OUTPUT,
         ILLUMINA_VALIDATION_OUTPUT,
-        MAP_CANDIDATES
+        MAP_CANDIDATES,
+
 
 rule check:
-    input: 
-        'input/THYME_607L_hifi.fastq.gz',
-        'input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta',
-        'external_data/GCA_024222315.1_ASM2422231v1_genomic.fna.gz',
-        'external_data/candidates_filtered_contigs.fasta',
+    input:
+        "input/THYME_607L_hifi.fastq.gz",
+        "input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
+        "external_data/GCA_024222315.1_ASM2422231v1_genomic.fna.gz",
+        "external_data/candidates_filtered_contigs.fasta",
         expand(
             "input/illumina/{sample}_hyb{hyb}_r{dir}.fq.gz",
-            sample = SAMPLES_EXPERIMENT, hyb = [1, 2], dir = [1, 2]
-            )
-
+            sample=SAMPLES_EXPERIMENT,
+            hyb=[1, 2],
+            dir=[1, 2],
+        ),
