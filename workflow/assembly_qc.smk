@@ -1,6 +1,6 @@
 rule run_busco_euk_ragtag:
     input:
-        f"{RAGTAG_OUTDIR}/hifiasm_10k_q30_GCA_024222315_default_all/ragtag.scaffold.fasta",
+        "results/ragtag_scaffold/hifiasm_10k_q30_GCA_024222315_default_all/ragtag.scaffold.fasta",
     output:
         out_dir=directory("results/assembly_quality/txome_busco/hifiasm_10k_q30_GCA_024222315_default_all"),
         dataset_dir=directory("resources/busco_downloads"),

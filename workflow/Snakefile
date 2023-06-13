@@ -34,9 +34,8 @@ ILLUMINA_VALIDATION_OUTPUT = [
 include: "illumina_validation.smk"
 
 MAP_CANDIDATES = [
-    "results/bwa/candidates_THYME_607L_hifi.sam",
-    "results/bwa/candidates_hifiasm_10k_q30.sam",
-    "results/bwa/candidates_hifiasm_10k_q30_ragtag_all.sam",
+    "results/bwa_candidates/candidates_THYME_607L_hifi.sam",
+    "results/bwa_candidates/candidates_hifiasm_10k_q30_ragtag_all.sam",
 ]
 include: "candidates.smk"
 

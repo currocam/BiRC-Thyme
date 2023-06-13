@@ -29,59 +29,14 @@ rule map_bwa_candidates_loci:
     wrapper:
         "v1.24.0/bio/bwa/mem"
 
-# Map candidates to de novo assembly
-rule bwa_index_hifiasm_assembly:
-    input:
-        "input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
-    output:
-        idx=multiext(
-            "results/bwa/hifiasm_10k_q30_index/hifiasm_10k_q30",
-            ".amb",
-            ".ann",
-            ".bwt",
-            ".pac",
-            ".sa",
-        ),
-    log:
-        "logs/bwa_index/hifiasm_10k_q30.log",
-    params:
-        algorithm="bwtsw",
-    wrapper:
-        "v1.24.0/bio/bwa/index"
-
-
-rule map_bwa_candidates_hifiasm_assembly:
-    input:
-        reads=["external_data/candidates_filtered_contigs.fasta"],
-        idx=multiext(
-            "results/bwa/hifiasm_10k_q30_index/hifiasm_10k_q30",
-            ".amb",
-            ".ann",
-            ".bwt",
-            ".pac",
-            ".sa",
-        ),
-    output:
-        "results/bwa/candidates_hifiasm_10k_q30.sam",
-    log:
-        "logs/bwa_mem/candidates_hifiasm_10k_q30.log",
-    params:
-        extra=r"-R '@RG\tID:candidates_hifiasm_10k_q30\tSM:candidates_hifiasm_10k_q30' -x intractg",
-        sorting="samtools",  # Can be 'none', 'samtools' or 'picard'.
-        sort_order="coordinate",  # Can be 'queryname' or 'coordinate'.
-        sort_extra="",  # Extra args for samtools/picard.
-    threads: 8
-    wrapper:
-        "v1.24.0/bio/bwa/mem"
-
-# Map candidates to the novo assembly
+# Map candidates to the scaffolded assembly
 
 rule bwa_index_scaffold_assembly:
     input:
         "results/ragtag_scaffold/hifiasm_10k_q30_GCA_024222315_default/ragtag.scaffold.fasta",
     output:
         idx=multiext(
-            "results/bwa/ragtag/hifiasm_10k_q30", ".amb", ".ann", ".bwt", ".pac", ".sa"
+            "results/bwa_candidates/ragtag/hifiasm_10k_q30", ".amb", ".ann", ".bwt", ".pac", ".sa"
         ),
     log:
         "logs/bwa_index/ragtag_hifiasm_10k_q30.log",
@@ -95,10 +50,10 @@ rule map_bwa_candidates_scaffold_assembly:
     input:
         reads=["external_data/candidates_filtered_contigs.fasta"],
         idx=multiext(
-            "results/bwa/ragtag/hifiasm_10k_q30", ".amb", ".ann", ".bwt", ".pac", ".sa"
+            "results/bwa_candidates/ragtag/hifiasm_10k_q30", ".amb", ".ann", ".bwt", ".pac", ".sa"
         ),
     output:
-        "results/bwa/candidates_hifiasm_10k_q30_ragtag.sam",
+        "results/bwa_candidates/candidates_hifiasm_10k_q30_ragtag.sam",
     log:
         "logs/bwa_mem/candidates_hifiasm_10k_q30_ragtag.log",
     params:
@@ -116,7 +71,7 @@ rule bwa_index_scaffold_assembly_all:
         "results/ragtag_scaffold/hifiasm_10k_q30_GCA_024222315_default_all/ragtag.scaffold.fasta",
     output:
         idx=multiext(
-            "results/bwa/ragtag/hifiasm_10k_q30_all",
+            "results/bwa_candidates/scaffold_assembly_index/hifiasm_10k_q30_all",
             ".amb",
             ".ann",
             ".bwt",
@@ -135,7 +90,7 @@ rule map_bwa_candidates_scaffold_assembly_all:
     input:
         reads=["external_data/candidates_filtered_contigs.fasta"],
         idx=multiext(
-            "results/bwa/ragtag/hifiasm_10k_q30_all",
+            "results/bwa_candidates/scaffold_assembly_index/hifiasm_10k_q30_all",
             ".amb",
             ".ann",
             ".bwt",
@@ -143,7 +98,7 @@ rule map_bwa_candidates_scaffold_assembly_all:
             ".sa",
         ),
     output:
-        "results/bwa/candidates_hifiasm_10k_q30_ragtag_all.sam",
+        "results/bwa_candidates/candidates_hifiasm_10k_q30_ragtag_all.sam",
     log:
         "logs/bwa_mem/candidates_hifiasm_10k_q30_ragtag_all.log",
     params:
