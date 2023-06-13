@@ -4,7 +4,7 @@
 *.fna
 *.fai
 *.stats
-reads/**
+input/**
 *.csv
 *.pdf
 *.html
