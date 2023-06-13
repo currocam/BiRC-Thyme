@@ -20,7 +20,7 @@ rule run_busco_euk_ragtag:
 
 rule run_busco_euk_hifiasm:
     input:
-        "external_data/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
+        "input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
     output:
         out_dir=directory("results/assembly_quality/txome_busco/hifiasm_10k_q30"),
         dataset_dir=directory("resources/busco_downloads"),

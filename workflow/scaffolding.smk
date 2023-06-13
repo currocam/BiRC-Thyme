@@ -1,7 +1,7 @@
 rule ragtag_correct:
     input:
         reference="external_data/GCA_024222315.1_ASM2422231v1_genomic.fna",
-        query="external_data/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
+        query="input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
         exclude="external_data/non_chromosomes_GCA_024222315.1.txt",
     conda:
         "envs/ragtag.yaml"
@@ -21,7 +21,7 @@ rule ragtag_correct:
 rule ragtag_scaffold_all:
     input:
         reference="external_data/GCA_024222315.1_ASM2422231v1_genomic.fna",
-        query="external_data/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
+        query="input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
     conda:
         "envs/ragtag.yaml"
     log:
@@ -40,7 +40,7 @@ rule ragtag_scaffold_all:
 rule ragtag_scaffold:
     input:
         reference="external_data/GCA_024222315.1_ASM2422231v1_genomic.fna",
-        query="external_data/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
+        query="input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
         exclude="external_data/non_chromosomes_GCA_024222315.1.txt",
     conda:
         "envs/ragtag.yaml"
@@ -59,7 +59,7 @@ rule ragtag_scaffold:
 rule ragtag_scaffold_final:
     input:
         reference="external_data/GCA_024222315.1_ASM2422231v1_genomic.fna",
-        query="external_data/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
+        query="input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
     conda:
         "envs/ragtag.yaml"
     log:

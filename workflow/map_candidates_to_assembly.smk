@@ -1,6 +1,6 @@
 rule minimap_candidates_vulgaris_assembly:
     input:
-        target="external_data/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",  # can be either genome index or genome fasta
+        target="input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",  # can be either genome index or genome fasta
         query="external_data/candidates_filtered_contigs.fasta",
     output:
         "results/aligned_hifiasm/candidates_filtered_contigs.sorted.bam",
@@ -19,7 +19,7 @@ rule minimap_candidates_vulgaris_assembly:
 
 rule bwa_index_hifiasm_assembly:
     input:
-        "external_data/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
+        "input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta",
     output:
         idx=multiext(
             "results/bwa/hifiasm_10k_q30_index/hifiasm_10k_q30",
