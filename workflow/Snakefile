@@ -1,14 +1,16 @@
+include: "quality_assesment.smk"
+QUALITY_CONTROL_OUTPUT = [
+    "results/qc/fastqc/THYME_607L_hifi.html",
+    "results/qc/longqc/THYME_607L_hifi"
+]
+
 rule all:
     input:
-        "results/qc/fastqc/THYME_607L_hifi.html",
-        "results/qc/longqc/THYME_607L_hifi",
+        QUALITY_CONTROL_OUTPUT,
         "results/filtered/THYME_607L_hifi_best_1_perc.fastq.gz",
         "results/aligned/GCA_024222315.1_ASM2422231v1_genomic_aln_best_1_perc.sorted.bam",
-        "results/summary/cov_5_perc.csv",
-        "results/summary/zeros_5_perc.csv",
         "results/aligned_stats/binned_coverage.txt",
         "results/aligned_stats/binned_coverage_big.txt",
-        "results/filtered/sequence_length_dist.txt",
         "results/bwa/best_5_perc_aligned.sam",
         "results/aligned_stats/coverage_subsample_minimap2.txt",
         "results/aligned_stats/coverage_subsample_bwa.txt",
@@ -23,7 +25,6 @@ include: "map_candidates_to_scaffolded.smk"
 include: "map_long_reads_to_reference.smk"
 include: "map_illumina_to_assembly.smk"
 include: "miscellaneous.smk"
-include: "quality_assesment.smk"
 include: "scaffolding.smk"
 include: "stats_long_reads_to_reference.smk"
 include: "subsample_by_quality.smk"

@@ -1,7 +1,7 @@
 # Quality assesment using fastqc
 rule fastqc:
     input:
-        "reads/{sample}.fastq.gz",
+        "input/{sample}.fastq.gz",
     output:
         html="results/qc/fastqc/{sample}.html",
         zip="results/qc/fastqc/{sample}_fastqc.zip",  # the suffix _fastqc.zip is necessary for multiqc to find the file. If not using multiqc, you are free to choose an arbitrary filename
@@ -17,7 +17,7 @@ rule fastqc:
 # Quality assesment using longqc
 rule longqc:
     input:
-        "reads/{sample}.fastq.gz",
+        "input/{sample}.fastq.gz",
     output:
         qc=directory("results/qc/longqc/{sample}"),
         trimmed="results/trimmed/{sample}.fastq",
