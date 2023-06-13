@@ -1,0 +1,92 @@
+%% Creator: Inkscape 1.2.2 (732a01da63, 2022-12-09), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'mapped_vs_error_rate.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{510bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.69411765)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0.23678853,0.52535573){\color[rgb]{0.80784314,0.42745098,0.70980392}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SAa046\end{tabular}}}}%
+    \put(0.75623993,0.65260391){\color[rgb]{0.34901961,0.68627451,0.41176471}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SAa046\end{tabular}}}}%
+    \put(0.14943931,0.49044843){\color[rgb]{0.80784314,0.42745098,0.70980392}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SAa062\end{tabular}}}}%
+    \put(0.65958627,0.65374976){\color[rgb]{0.34901961,0.68627451,0.41176471}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SAa062\end{tabular}}}}%
+    \put(0.78552537,0.27097329){\color[rgb]{0.80784314,0.42745098,0.70980392}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}THa252\end{tabular}}}}%
+    \put(0.89172666,0.24631797){\color[rgb]{0.34901961,0.68627451,0.41176471}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}THa252\end{tabular}}}}%
+    \put(0.86702855,0.29761729){\color[rgb]{0.80784314,0.42745098,0.70980392}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}THb134\end{tabular}}}}%
+    \put(0.93824688,0.2766036){\color[rgb]{0.34901961,0.68627451,0.41176471}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}THb134\end{tabular}}}}%
+    \put(0.85544719,0.21853176){\color[rgb]{0.80784314,0.42745098,0.70980392}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Thym607\end{tabular}}}}%
+    \put(0.9259334,0.20239168){\color[rgb]{0.34901961,0.68627451,0.41176471}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Thym607\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{mapped_vs_error_rate.pdf}}%
+    \put(0.05286274,0.18815686){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.01\end{tabular}}}}%
+    \put(0.05286274,0.2697647){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.02\end{tabular}}}}%
+    \put(0.05286274,0.35137254){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.03\end{tabular}}}}%
+    \put(0.05286274,0.43298038){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.04\end{tabular}}}}%
+    \put(0.05286274,0.51460783){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.05\end{tabular}}}}%
+    \put(0.05286274,0.59621567){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0.06\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{mapped_vs_error_rate.pdf}}%
+    \put(0.31870587,0.15978431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}70\end{tabular}}}}%
+    \put(0.52862744,0.15978431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}80\end{tabular}}}}%
+    \put(0.738549,0.15978431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}90\end{tabular}}}}%
+    \put(0.93974507,0.15978431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}100\end{tabular}}}}%
+    \put(0.24647058,0.12254902){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Percentage of properly paired mapped reads\end{tabular}}}}%
+    \put(0.03815686,0.12658823){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}N. of mismatches / N. of mapped nucleotides\end{tabular}}}}}%
+    \put(0.02581283,0.06096445){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Hybridization condition\end{tabular}}}}%
+    \put(0.37140106,0.06584151){\color[rgb]{0.80784314,0.42745098,0.70980392}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}a\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{mapped_vs_error_rate.pdf}}%
+    \put(0.45447949,0.06584151){\color[rgb]{0.34901961,0.68627451,0.41176471}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}a\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{mapped_vs_error_rate.pdf}}%
+    \put(0.4074991,0.05761731){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0.49057753,0.05761731){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{mapped_vs_error_rate.pdf}}%
+    \put(0.81256364,0.05766327){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}S. montana\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{mapped_vs_error_rate.pdf}}%
+    \put(0.59883707,0.06096445){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}T. vulgaris\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
