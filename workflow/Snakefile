@@ -18,17 +18,17 @@ ASSEMBLY_QC_OUTPUT = [
 ],
 include: "assembly_qc.smk"
 
-SELECTED_SAMPLES_EXPERIMENT = [
+SAMPLES_EXPERIMENT = [
     "SAa046", "SAa062", "THa252", "THb134", "Thym607"
 ]
 ILLUMINA_VALIDATION_OUTPUT = [
     expand("results/bwa_illumina/{sample}_{hyb}.bam.{type}",
         type = ["stats", "flagstats"], hyb = ["hyb1", "hyb2"],
-        sample = SELECTED_SAMPLES_EXPERIMENT
+        sample = SAMPLES_EXPERIMENT
         ),
     expand(
             "analysis/03-count_illumina_reads_assembly/counts/{sample}_{hyb}.csv",
-            hyb = ["hyb1", "hyb2"], sample = SELECTED_SAMPLES_EXPERIMENT
+            hyb = ["hyb1", "hyb2"], sample = SAMPLES_EXPERIMENT
         )
 ]
 include: "illumina_validation.smk"
@@ -48,3 +48,15 @@ rule all:
         ASSEMBLY_QC_OUTPUT,
         ILLUMINA_VALIDATION_OUTPUT,
         MAP_CANDIDATES
+
+rule check:
+    input: 
+        'input/THYME_607L_hifi.fastq.gz',
+        'input/hifiasm_10k_q30.asm.bp.p_ctg.gfa.fasta',
+        'external_data/GCA_024222315.1_ASM2422231v1_genomic.fna.gz',
+        'external_data/candidates_filtered_contigs.fasta',
+        expand(
+            "input/illumina/{sample}_hyb{hyb}_r{dir}.fq.gz",
+            sample = SAMPLES_EXPERIMENT, hyb = [1, 2], dir = [1, 2]
+            )
+
