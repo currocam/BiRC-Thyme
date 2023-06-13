@@ -9,15 +9,21 @@ include: "raw_reads_qc.smk"
 DATA_EXPLORATION_OUTPUT = "results/aligned_stats/binned_coverage.txt"
 include: "data_exploration.smk"
 
-RAGTAG_OUTDIR = "results/ragtag_scaffold/scaffold_10k_q30_GCA_024222315_infergaps"
-SCAFFOLD_OUTPUT = [f"{RAGTAG_OUTDIR}/ragtag.scaffold.{suff}" for suff in ["fasta", "agp", "stats"]]
+RAGTAG_OUTDIR = "results/ragtag_scaffold"
+SCAFFOLD_OUTPUT = [f"{RAGTAG_OUTDIR}/scaffold_10k_q30_GCA_024222315_infergaps/ragtag.scaffold.{suff}" for suff in ["fasta", "agp", "stats"]]
 include: "ragtag.smk"
+
+ASSEMBLY_QC_OUTPUT = [
+    f"results/assembly_quality/txome_busco/{suffix}" for suffix in ["hifiasm_10k_q30_GCA_024222315_default_all", "hifiasm_10k_q30"]
+],
+include: "assembly_qc.smk"
 
 rule all:
     input:
         QUALITY_CONTROL_OUTPUT,
         DATA_EXPLORATION_OUTPUT,
         SCAFFOLD_OUTPUT,
+        ASSEMBLY_QC_OUTPUT,
         "results/bwa/candidates_THYME_607L_hifi.sam",
         "results/aligned_hifiasm/candidates_filtered_contigs.sorted.bam",
         "results/bwa/candidates_hifiasm_10k_q30.sam",
@@ -29,4 +35,3 @@ include: "map_candidates_to_scaffolded.smk"
 include: "map_illumina_to_assembly.smk"
 include: "miscellaneous.smk"
 include: "scaffolding.smk"
-include: "assembly_quality_assesment.smk"
