@@ -1,4 +1,4 @@
-include: "quality_assesment.smk"
+include: "raw_reads_qc.smk"
 QUALITY_CONTROL_OUTPUT = [
     "results/qc/fastqc/THYME_607L_hifi.html",
     "results/qc/longqc/THYME_607L_hifi"
