@@ -12,7 +12,7 @@ rule bwa_index_scaffold_assembly_infergaps:
 
 rule bwa_mem_illumina:
     input:
-        reads=["reads/illumina/{sample}_r1.fq.gz", "reads/illumina/{sample}_r2.fq.gz"],
+        reads=["input/illumina/{sample}_r1.fq.gz", "input/illumina/{sample}_r2.fq.gz"],
         idx=multiext("results/bwa_illumina/ragtag/assembly_infergaps", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
         temporary("results/bwa_illumina/{sample}.bam"),
@@ -71,19 +71,3 @@ rule count_mapped_to_references:
         "analysis/03-count_illumina_reads_assembly/counts/{sample}.csv"
     shell:
         "seqkit bam -C {input.bam} 2> {output}"
-
-SELECTED_SAMPLES_EXPERIMENT = [
-    "SAa046", "SAa062", "THa252", "THb134", "Thym607"
-]
-
-rule run_illumina_to_assembly_exp:
-    input:
-        expand(
-            "results/bwa_illumina/{sample}_{hyb}.bam.{type}",
-            type = ["stats", "flagstats"], hyb = ["hyb1", "hyb2"],
-            sample = SELECTED_SAMPLES_EXPERIMENT
-        ),
-        expand(
-            "analysis/03-count_illumina_reads_assembly/counts/{sample}_{hyb}.csv",
-            hyb = ["hyb1", "hyb2"], sample = SELECTED_SAMPLES_EXPERIMENT
-        )
