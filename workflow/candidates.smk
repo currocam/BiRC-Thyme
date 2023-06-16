@@ -17,7 +17,7 @@ rule map_bwa_candidates_loci:
         reads=["external_data/candidates_filtered_contigs.fasta"],
         idx=multiext("input/THYME_607L_hifi", ".amb", ".ann", ".bwt", ".pac", ".sa"),
     output:
-        "results/bwa/candidates_THYME_607L_hifi.sam",
+        "results/bwa_candidates/candidates_THYME_607L_hifi.sam",
     log:
         "logs/bwa_mem/candidates_THYME_607L_hifi.log",
     params:
