@@ -9,6 +9,8 @@ input/**
 *.pdf
 *.html
 *.RDS
+/.quarto/
+/_site/
 results/**
 !results/README
 logs/**
