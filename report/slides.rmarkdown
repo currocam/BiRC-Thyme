@@ -1,0 +1,333 @@
+---
+title: "Chromosome-level assembly of *Thymus vulgaris*"
+date: today
+author: Curro Campuzano Jiménez
+bibliography: "bibliography.bib"
+fig-dpi: 400
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/birc.png
+    css: styles.css
+    footer: Project in Bioinformatics | MSc. in Bioinformatics at Aarhus University
+resources:
+  - demo.pdf
+---
+
+
+## Thyme's Ecology in Saint-Martin-de-Londres
+
+<!-- ![Spatial distribution of *Thymus vulgaris* phenolic (black)  and non-phenolic (yellow) chemotypes [Obtained from @thompsonPlantTraitsEcological2020]](images/Thymusvulgarischemotypes_St%20Martin-de-Londres.png){#fig-spatial fig-align="center" width="65%"} -->
+
+## Why a Chromosome-level assembly of *T. vulgaris?*
+
+A few *loci* of the monoterpene pathway explain chemotype variation (@bataillonGenotypePhenotypeGenetic2022)
+
+::: incremental
+-   Where are these *loci* located?
+-   Linkage groups
+-   Visualization of genome-wide features
+:::
+
+. . .
+
+<br/> Dealing with a genome that has thousands of fragments can be challenging!
+
+## Impact of Long-read sequencing technologies and Hi-C
+
+
+```{r}
+#| label: fig-assemblies
+#| fig-cap: 
+#|   - "Evolution of the number of published **Chromosome-level genome assemblies**. Data was retrieved from [NCBI](https://www.ncbi.nlm.nih.gov/genome/) on 6/15/2023."
+library(tidyverse)
+source('../analysis/00-miscellaneous/format.R')
+eu <- read_csv('eukaryotes_chrm.csv') |>
+  separate_wider_delim('Organism Groups', delim = ';', names = c('Kingdom', 'Group', 'Subgroups'))|>
+  arrange(`Release Date`)
+
+hifi_date <- as.Date("2019-12-08")
+hic_data <- as.Date("2009-09-08")
+eu |>
+  filter(`Release Date` > as.Date("2000-01-01"))|>
+  filter(!Group %in% c('Protists', 'Other'))|>
+#  filter(Group %in% c("Animals", "Plants"))|>
+  mutate(n = cumsum(row_number()), .by = Group)|>
+  ggplot(aes(x = `Release Date`, y = n, color = Group))+
+  geom_smooth()+
+  geom_vline(xintercept = as.POSIXct(hifi_date), linetype = "dashed", color = "#cd5136ff")+
+  annotate("text", x=as.POSIXct(hifi_date +11^2), y=10^6, label="Hi-Fi paper publication", angle=90)+
+  geom_vline(xintercept = as.POSIXct(hic_data), linetype = "dashed", color = "#cd5136ff")+
+  annotate("text", x=as.POSIXct(hic_data +11^2), y=10^6, label="Hi-C paper publication", angle=90)+
+  theme_bw()+
+  guides(color = guide_legend(override.aes = list(fill = NA)),
+         linetype = guide_legend(override.aes = list(fill = NA))) +
+  theme(legend.key = element_rect(fill = "white"))+
+  ylab('# Published assemblies')
+
+```
+
+
+## Recently published *T. quinquecostatus* genome assembly
+
+![](images/tq_paper.png){fig-align="center" width="20%"}
+
+##  Main idea
+
+<br/>
+
+### We explored the possibility of using the <span style="color:#64ac48ff;">*T. quinquecostatus*</span> genome to obtain a <span style="color:#8762ccff;">chromosome-level</span> assembly of <span style="color:#4aac8dff;">*T. vulgaris*</span> with HiFi reads
+
+# Data exploration {background="#4a3050"}
+
+## Exploratory analysis
+
+Is it possible to *T. quinquecostatus* genome for **reference assembly?**
+
+![Alternative methods ](images/reference_assembly.png){#fig-comparative fig-align="center" width="110%"}
+
+## Modelling *T. vulgaris* long reads aligned to *T. quinquecostatus*
+
+1.  Align best 5% of reads to *T. quinquecostatus* assembly
+3.  Count mapped reads into 1000-length windows (reduce computational power)
+4.  Fit Zero inflated Poisson
+
+$$
+Y = \begin{cases} 0, & \textrm{with probability } p \\ \textrm{Poisson}(\lambda), & \textrm{with probability } 1-p \end{cases}
+$$
+
+## Unmapped regions $\stackrel{?}{=}$ non-conserved regions
+
+
+
+```{r}
+#| label: fig-posterior
+#| fig-cap: 
+#|   - "Sampled posterior distribution of parameters for pseudo-chromosome CM044164.1 using MCMC"
+df <- read_csv("../analysis/01-mapped_reads-model/chains/CM044164.1.csv") |>
+  pivot_longer(cols = c("λ", "pzero"))|>
+  mutate(type = "Posterior")
+set.seed(100)
+pzero_prior <- tibble(
+  name = 'pzero', value = runif(300, 0, 1), type = 'Prior'
+  )
+
+lambda_prior <- tibble(
+  name = 'λ', value = rgamma(300, 0.5453453453453454), type = 'Prior'
+  )
+library(latex2exp)
+
+data_plot <- bind_rows(df, pzero_prior, lambda_prior) |>
+  mutate(name = as.factor(name))
+levels(data_plot$name) <- c(TeX("$p_0$"), TeX("$\\lambda$"))
+
+data_plot|>
+  ggplot(aes(x = value, fill = type))+
+  geom_density(alpha = 0.7)+
+  facet_wrap(
+    ~name,ncol = 1, scales = "free",
+    labeller=label_parsed
+    ) +
+  theme_light()+
+  theme(legend.position="bottom")+
+  xlab("Value")+ylab('Density')+
+  guides(fill=guide_legend(title=""))
+```
+
+
+
+# Data analysis pipeline {background="#4a3050"}
+
+## Reproducible research
+
+-   Chained execution of many CLI
+-   Isolated software environment (using [Conda](https://docs.conda.io/en/latest/) and [Singularity](https://sylabs.io/))
+-   Unit testing
+
+![](images/snakemake.png){fig-align="center" width="30%"}
+
+
+## Contribution to Snakemake project
+
+![](images/PR_ragtag.png){fig-align="center" width="30%"}
+
+
+## Outline of Data Analysis
+
+![Outline of Data Analysis](images/simplified_methods.png){#fig-methods fig-align="center" width="100%"}
+
+# Results {background="#4a3050"}
+
+## Quality control of raw reads
+
+::: columns
+::: {.column width="40%"}
+-   23.65 Gb of HiFi long reads
+
+-   31.34x coverage of *T. vulgaris* genome
+
+-   Quality control was successful according to [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) and [LongQC](https://github.com/yfukasawa/LongQC)
+:::
+
+::: {.column width="60%"}
+![Per sequence GC content. Obtained with [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc)](images/gc_fasqc.png){#fig-gc fig-align="center" width="90%"}
+:::
+:::
+
+<br/>
+
+## *De novo* assembly
+
+-   [HiFiasm](https://github.com/chhylp123/hifiasm) assembled $\sim 1.7\cdot 10^6$ long reads into $\sim1.900$ contigs
+
+-   $N50= 1.87$Mb
+
+</br>
+
+. . .
+
+::: callout-important
+Highly fragmented, but within the expectation for highly repetitive plant genomes
+:::
+
+## Whole-genome alignment between *T. vulgaris* and *T. quinquecostatus*
+
+![Covered areas of T. quinquecostatus in the Whole-genome alignment](images/whole_genome_alignment.png){#fig-whole fig-align="center" width="90%"}
+
+## Scaffolding process with RagTag (77% placed nucleotides)
+
+![Synteny-like plot of CM044164.1 (only four *T. vulgaris* contigs)](images/synteny.png){#fig-scaffold fig-align="center" width="90%"}
+
+## Genome assembly size
+
+
+```{r}
+#| label: fig-size
+#| fig-cap: 
+#|   - "Comparison of genome assembly size"
+
+library(ggtext)
+
+tribble(
+  ~name, ~size,
+  "Only 13 pseudo-chromosomes",   695.63,
+  #"Cytometric estimation",   754.60,
+  "Including unplaced contigs",   911.87
+) |>
+  ggplot() +
+  geom_segment(
+    aes(y=name, yend=name, x=0, xend=size),
+    size=1, color="#8762ccff") +
+  geom_point(aes(y=name, x=size), size = 3, colour = "#8762ccff")+
+  geom_vline(xintercept = 754.60, linetype = "dashed", color = "#cd5136ff")+
+  annotate(
+    "text", x=780, y=2, label="Cytometric estimation", angle=90)+
+  theme_minimal()+
+  ylab('') + xlab('*T. vulgaris* genome size (Mb)')+
+  theme(axis.title.x = element_markdown())
+
+  
+```
+
+
+
+## Quality assessment: N50 (contiguity)
+
+From 1.87 Mb (n=133) to **48.92 Mb (n=8)**
+
+![For *historical context*, N50 statistics of the published plant genomes. Obtained from @sunTwentyYearsPlant2022a](images/contiguity.jpg){#fig-n50 fig-align="center" width="90%"}
+
+
+## Quality assessment: [BUSCO](https://busco.ezlab.org/)
+
+BUSCO looks for the presence of nearly-universal orthologous genes
+
+Completeness score : 96.4%1 (using Eudicots dataset)
+
+::: {.callout-warning appearance="simple"}
+## Disclaimer
+
+Complete and duplicated genes is **high** (31.4%)
+
+-   Recent genome duplication event?
+
+-   Chimeric assembly of haplotypes?
+:::
+
+## Aligned Illumina reads to assembly
+
+Two hybridization conditions to enrich certain sequences: <span style="color:#ce6db5ff;">**15%**</span> and <span style="color:#59af69ff;">**5%**</span> of nucleotide divergence [@bataillonGenotypePhenotypeGenetic2022]
+
+::: columns
+::: {.column width="50%"}
+![](images/satureja_montana.jpg){fig-align="center" width="75%"}
+:::
+
+::: {.column width="50%"}
+![](images/thymus_vulgaris.jpg){fig-align="center" width="75%"}
+:::
+:::
+
+::: footer
+Both photographs obtained from [Herbari Virtual del Mediterrani Occidental](http://herbarivirtual.uib.es/)
+:::
+
+## Validation using experimental data
+
+![Aligned short Illumina reads to the *T. vulgaris* assembly](images/illumina.png){#fig-illumina fig-align="center" width="100%"}
+
+# Future work {background="#4a3050"}
+
+## {#future_work_list data-menu-title="Future work ideas"}
+
+-   Genome assembly quality evaluation: **repetitive** sequences
+
+. . .
+
+-   Validation with experimental data: **transcriptome**
+
+. . .
+
+-   Improve assembly: **alternative** reference-based scaffold algorithms
+
+. . .
+
+-   Phylogenetic analysis: thyme **ecology**
+
+# Conclussions {background="#4a3050"}
+
+## Take-home message
+
+<br/>
+
+### <span style="color:#cd5136ff;">*De novo* assembly of HiFi reads + homology-based scaffolding</span> is an effective approach to obtain a <span style="color:#8762ccff;">chromosome-level</span> assembly but a more comprehensive <span style="color:#64ac48ff;">**evaluation**</span> has to be done regarding repetitive and chimeric sequences, as well as further experimental <span style="color:#64ac48ff;">**validation**</span>
+
+## References
+
+::: {#refs}
+:::
+
+# Extra slides { background="#4a3050" visibility="uncounted"}
+
+## Bayesian inference using Julia (Turing library) {visibility="uncounted"}
+
+
+
+``` {.julia filename="model.jl"}
+ZeroInflatedPoisson(λ, p) = MixtureModel(
+  [Dirac(0), Poisson(λ)], [p, 1 - p]
+  )
+  
+@model function zip(Y)
+    α = 1
+    θ = mean(y)
+    λ ~ Gamma(α, θ)
+    pzero ~ Uniform(0, 1)
+    Y ~ ZeroInflatedPoisson(λ, pzero)
+end;
+```
+
+
